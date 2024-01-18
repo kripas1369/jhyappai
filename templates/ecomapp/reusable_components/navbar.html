@@ -1,0 +1,166 @@
+{% load static %}
+<header class="Header" id="navbar">
+  <!-- Start Navigation -->
+  <nav class="Header_Top">
+    <div class="Header_Top_Container">
+      <p>
+        <a href="{% url 'ecomapp:home' %}">
+          Home
+        </a>
+      </p>
+      <p>
+        About us
+      </p>
+      {% if request.user.is_authenticated %}
+
+      <p>
+        <a href="{% url 'logout' %}">
+          Logout
+        </a>
+      </p>
+
+      {% else %}
+      <p>
+        <a href="{% url 'login' %}">Login</a>
+      </p>
+      <p>
+
+        <a href="{% url 'register' %}">Register</a>
+      </p>
+
+
+      {% endif %}
+    </div>
+    <div class="Header_Top_Navigation" id="Navigation">
+      <a href="{% url 'ecomapp:home' %}" class="Header_Top_Navigation_Logo1">
+
+        <img src="../../../static/images/RozaiLogo.png" alt="Rozai Logo" class="Header_Top_Navigation_Logo" />
+      </a>
+      <div class="Header_Top_Navigation_InputBox">
+        <input id="Header_Show_Input" type="text" class="Header_Top_Navigation_InputBox_Input" id="search_product"
+          placeholder="I am shopping for .." />
+        <button id="Header_Show_Find" onclick="searchProduct()" class="Header_Top_Navigation_InputBox_Logo">
+          <i class="fa-solid fa-magnifying-glass Header_Top_Navigation_InputBox_Logo_Icon"></i>
+        </button>
+        <button id="Header_Show_Search" class="Header_Top_Navigation_InputBox_Logo1">
+          <i class="fa-solid fa-magnifying-glass Header_Top_Navigation_InputBox_Logo1_Icon"></i>
+        </button>
+      </div>
+      <div class="Header_Top_Navigation_Logos">
+        <div class="Header_Top_Navigation_Logos_Logo">
+          <a href="{% url 'ecomapp:cart' %}" class="Header_Top_Navigation_Logos_Logo_Logo">
+            <img src="../../../static/images/heading/cart.png" alt="Rozai Cart Png"
+              class="Header_Top_Navigation_Logos_Logo_Icon">
+            <div class="Header_Top_Navigation_Logos_Logo_Number">
+              <span id="cart_itemnumber">0</span>
+              <p>
+                <a href="{% url 'ecomapp:cart' %}">
+                  Cart
+                </a>
+              </p>
+            </div>
+          </a>
+
+        </div>
+
+        {% if request.user.is_authenticated %}
+        <div class="Header_Top_Navigation_Logos_Logo">
+          <a href="{% url 'ecomapp:wishlist' %}" class="Header_Top_Navigation_Logos_Logo_Logo">
+            <img src="../../../static/images/heading/wishlist.png" alt="Rozai Wishlist Png"
+              class="Header_Top_Navigation_Logos_Logo_Icon1">
+            <div class="Header_Top_Navigation_Logos_Logo_Number">
+              <span id="wishlist_itemnumber">0</span>
+              <p>
+                <a href="{% url 'ecomapp:wishlist' %}">
+                  WishList
+                </a>
+              </p>
+            </div>
+          </a>
+        </div>
+        {% endif %}
+        <div class="Header_Top_Navigation_Logos_Logo" id="profile_logo">
+          <img src="../../../static/images/heading/profile.png" alt="Rozai Profile Png"
+            class="Header_Top_Navigation_Logos_Logo_Icon2">
+          <div class="Header_Top_Navigation_Logos_Logo_Number">
+            <img src="../../../static/images/heading/profilespan.png" alt="Rozai Profile Span"
+              class="Header_Top_Navigation_Logos_Logo_Number_Image">
+            <p>Profile</p>
+          </div>
+        </div>
+        <a href="tel:9863865201">
+          <div class="Header_Top_Navigation_Logos_Logo">
+            <img src="../../../static/images/heading/call.png" alt="Rozai Call Png"
+              class="Header_Top_Navigation_Logos_Logo_Icon2">
+            <div class="Header_Top_Navigation_Logos_Logo_Number">
+              <img src="../../../static/images/heading/callspan.png" alt="Rozai Profile Span"
+                class="Header_Top_Navigation_Logos_Logo_Number_Image1">
+              <p>Call</p>
+            </div>
+          </div>
+        </a>
+      </div>
+      <!--Start Profile Box-->
+
+      <div class="Header_Top_Profile" id="profile_box" style="display:none;">
+        <div class="Header_Top_Profile_Top">
+          <button id="profile_logo_1" class="Header_Top_Profile_Top_Logo">
+            <i class="fa-solid fa-xmark"></i>
+          </button>
+          <img class="Header_Top_Profile_Top_Image" src="../../../static/images/heading/Profile.png"
+            alt="Rozai Profile Design" />
+          <h3>Profile Details</h3>
+          <button class="Header_Top_Profile_Button_Primary">
+            <a href="{% url 'ecomapp:myorders' %}">
+              My Orders
+            </a>
+          </button>
+
+
+        </div>
+        <form class="Header_Top_Profile_Bottom">
+          <div class="Header_Top_Profile_Bottom_InputField">
+            <p>Name</p>
+            <input type="text" class="Header_Top_Profile_Bottom_InputField_Input" value="Pasang Sherpa" />
+          </div>
+          <div class="Header_Top_Profile_Bottom_InputField">
+            <p>Password</p>
+            <input type="password" class="Header_Top_Profile_Bottom_InputField_Input" value="password" />
+          </div>
+          <div class="Header_Top_Profile_Bottom_InputField">
+            <p>Location</p>
+            <input type="text" class="Header_Top_Profile_Bottom_InputField_Input" value="Kathmandu, Dilibazar" />
+          </div>
+        </form>
+        <div class="Header_Top_Profile_Button">
+          <button class="Header_Top_Profile_Button_Primary">
+            Change
+          </button>
+
+        </div>
+      </div>
+      <!--End Profile Box-->
+
+      <!-- <div class="Header_Top_Notification">
+      <p id="success">Product Add To Cart</p>
+    </div>
+    <div class="Header_Top_Error">
+      <p id="success">Product Add To Cart</p>
+    </div> -->
+  </nav>
+
+  <!-- Start of Notification/ success/ Error Rozai -->
+  <div class="Header_Box" id="notification_box">
+
+
+  </div>
+
+
+  <!-- End of Notification/Success/Error Rozai -->
+
+  <!-- End Navigation -->
+</header>
+
+{% block jscontent %}
+<script type="text/javascript" src="{% static 'ecomapp/js/custom/constants/navbar.js' %}"></script>
+{% endblock jscontent %}

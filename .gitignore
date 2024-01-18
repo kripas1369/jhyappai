@@ -1,0 +1,7 @@
+.venv
+env
+staticfiles-cdn
+/node_modules
+.package.json
+./ecom/.env
+.package-lock.json

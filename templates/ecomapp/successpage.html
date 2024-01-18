@@ -1,0 +1,20 @@
+{% extends "ecomapp/base.html" %}
+{% load static %}
+
+{% block content %}
+<section class="Thanks">
+    <img src="../../static/images/thanks.png" alt="orbinda thanks" class="Thanks_Image">
+    <h2>Thanks for Order</h2>
+    <button class="Thanks_ButtonPrimary">
+        Back to Shopping
+    </button>
+</section>
+
+{% endblock content %}
+
+
+<!-- JS BLOCK  -->
+{% block jscontent %}
+<script type="text/javascript" src="{% static 'ecomapp/js/custom/successpage.js' %}"></script>
+{% endblock jscontent %}
+<!-- JS BLOCK END -->

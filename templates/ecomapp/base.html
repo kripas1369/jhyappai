@@ -1,0 +1,116 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+<!-- Basic -->
+
+<head>
+  <meta charset="utf-8" />
+  <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+
+  <!-- Mobile Metas -->
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+
+  <!-- Site Metas -->
+  <meta name="keywords" content="" />
+  <meta name="description" content="" />
+  <meta name="author" content="" />
+
+  <!-- Site Icons -->
+  <link rel="shortcut icon" href="images/favicon.ico" type="image/x-icon" />
+  <link rel="apple-touch-icon" href="/images/apple-touch-icon.png" />
+
+  <!-- Bootstrap CSS -->
+  <link rel="stylesheet" href="{% static 'ecomapp/css/bootstrap.min.css' %}" />
+  <!-- Site CSS -->
+  <link rel="stylesheet" href="{% static 'ecomapp/css/style.css' %}" />
+  <!-- Responsive CSS -->
+  <link rel="stylesheet" href="{% static 'ecomapp/css/responsive.css' %}" />
+  <!-- Custom CSS -->
+  <link rel="stylesheet" href="{% static 'ecomapp/css/custom.css' %}" />
+  <!-- Sass  -->
+  <link rel="stylesheet" href="{% static 'ecomapp/css/custon/style.css'%}" />
+
+  {% comment %} font awesome urls {% endcomment %}
+  <link href="{% static 'fontawesomefree/css/all.min.css' %}" rel="stylesheet" type="text/css" />
+  <script src="{% static 'fontawesomefree/js/all.min.js' %}"></script>
+  <!-- <script defer src="https://use.fontawesome.com/releases/v5.15.4/js/all.js"
+    integrity="sha384-rOA1PnstxnOBLzCLMcre8ybwbTmemjzdNlILg8O7z1lUkLXozs4DHonlDtnE7fpc"
+    crossorigin="anonymous"></script> -->
+
+  <!-- <link rel="stylesheet" type="text/css" href="{% static 'fontawesome/css/all.min.css' %}" /> -->
+  {% block title %}
+
+  {% endblock title %}
+
+  <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.11.6/dist/umd/popper.min.js"
+    integrity="sha384-oBqDVmMz9ATKxIep9tiCxS/Z9fNfEXiDAYTujMAeBAsjFuCZSmKbSSUnQlmh/jp3"
+    crossorigin="anonymous"></script>
+  <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.2/dist/js/bootstrap.min.js"
+    integrity="sha384-IDwe1+LCz02ROU9k972gdyvl+AESN10+x7tBKgc9I5HFtuNz0wWnPclzo6p9vxnk"
+    crossorigin="anonymous"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/axios/0.21.1/axios.min.js"></script>
+
+  <!--[if lt IE 9]>
+      <script src="https://oss.maxcdn.com/libs/html5shiv/3.7.0/html5shiv.js"></script>
+      <script src="https://oss.maxcdn.com/libs/respond.js/1.4.2/respond.min.js"></script>
+    <![endif]-->
+  {% block csscontent %} {% endblock csscontent %}
+
+</head>
+
+<body>
+  <!-- Start Main Top -->
+  {% include 'ecomapp/reusable_components/navbar.html' %}
+  <!-- End Main Top -->
+
+  {% block content %} {% endblock content %}
+
+  <!-- Start Footer  -->
+  {% include 'ecomapp/reusable_components/footer.html' %}
+  <!-- End Footer  -->
+
+  <!-- Start copyright  -->
+  <!-- <div class="footer-copyright">
+        <p class="footer-company">All Rights Reserved. &copy; 2018 <a href="#">ThewayShop</a> Design By :
+            <a href="https://html.design/">html design</a></p>
+    </div> -->
+
+  <!-- End copyright  -->
+
+  <a href="#" id="back-to-top" title="Back to top" style="display: none">&uarr;</a>
+  <script>
+    const wishlistnumber = document.getElementById("wishlist_itemnumber");
+    axios
+      .get(`${window.location.origin}/wishlist_num`)
+      .then((response) => {
+        console.log(response.data.number);
+        wishlistnumber.innerHTML = response.data.number;
+      })
+      .catch((error) => {
+        console.log(error);
+      });
+  </script>
+
+  <!-- ALL JS FILES -->
+  <!-- <script src="{% static 'ecomapp/js/jquery-3.2.1.min.js' %}"></script>
+  <script src="{% static 'ecomapp/js/popper.min.js' %}"></script>
+  <script src="{% static 'ecomapp/js/bootstrap.min.js' %}"></script> -->
+  <!-- ALL PLUGINS -->
+  <!-- <script src="{% static 'ecomapp/js/jquery.superslides.min.js' %}"></script>
+  <script src="{% static 'ecomapp/js/bootstrap-select.js' %}"></script>
+  <script src="{% static 'ecomapp/js/inewsticker.js' %}"></script>
+  <script src="{% static 'ecomapp/js/bootsnav.js' %}"></script>
+  <script src="{% static 'ecomapp/js/images-loded.min.js' %}"></script>
+  <script src="{% static 'ecomapp/js/isotope.min.js' %}"></script>
+  <script src="{% static 'ecomapp/js/owl.carousel.min.js' %}"></script>
+  <script src="{% static 'ecomapp/js/baguetteBox.min.js' %}"></script>
+  <script src="{% static 'ecomapp/js/form-validator.min.js' %}"></script>
+  <script src="{% static 'ecomapp/js/contact-form-script.js' %}"></script>
+  <script src="{% static 'ecomapp/js/custom.js' %}"></script> -->
+
+  <script type="text/javascript" src="{% static 'ecomapp/js/custom/base.js' %}"></script>
+
+  {% block jscontent %} {% endblock jscontent %}
+</body>
+
+</html>

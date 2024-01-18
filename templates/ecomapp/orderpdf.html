@@ -1,0 +1,90 @@
+{% load static %}
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
+<html>
+
+<head>
+    <title>Title</title>
+    <style type="text/css">
+        body {
+            font-weight: 200;
+            font-size: 14px;
+        }
+
+        .header {
+            font-size: 20px;
+            font-weight: 100;
+            text-align: center;
+            color: #007cae;
+        }
+
+        .title {
+            font-size: 22px;
+            font-weight: 100;
+            /* text-align: right;*/
+            padding: 10px 20px 0px 20px;
+        }
+
+        .signature {
+            text-align: right;
+        }
+
+        .title span {
+            color: #007cae;
+        }
+
+        .details {
+            padding: 10px 20px 0px 20px;
+            text-align: left !important;
+            /*margin-left: 40%;*/
+        }
+
+        .hrItem {
+            border: none;
+            height: 1px;
+            /* Set the hr color */
+            color: #333;
+            /* old IE */
+            background-color: #fff;
+            /* Modern Browsers */
+        }
+    </style>
+</head>
+
+<body>
+    <div class='wrapper'>
+        <div class='header'>
+            <img style="width:150px;height:50px;background:white"
+                src="https://firebasestorage.googleapis.com/v0/b/rozai-9e059.appspot.com/o/RozaiLogo.png?alt=media&token=8a50e9dd-8e4f-45a9-b628-72b5839b52f8" />
+            <p class='title'>Invoice - {{order.invoice_number}} </p>
+        </div>
+        <div>
+            <br class='details'>
+
+            Date: {{order.created_at}}<br />
+            Order Id: {{order.order_id}} <br />
+            Customer: {{order.first_name}} {{order.last_name}} <br />
+            Phonenumber: {{order.phone_number}}<br />
+            Delivery Location: {{order.location.title}}<br />
+            Total Order Items: {{order.total_order_items}} <br />
+            Order Items Price: Rs. {{order.order_itmes_price}} <br />
+            Applied Coupon:
+            {% if order.coupon %}
+            {{order.coupon.coupon_code}} (-{{order.coupon_price_deduction}}%)
+            {% else %}
+            NONE
+            {% endif %}
+            <br />
+            Delivery Price: Rs.{{order.delivery_price_addition}}<br />
+            <strong>
+
+                Final Price: Rs.{{order.final_price}} <br />
+            </strong>
+            <hr class='hrItem' />
+        </div>
+
+        <p style="margin-top:40px" class='signature'>--------------------------------</p>
+        <p style="margin-right:30px" class='signature'>Signature</p>
+    </div>
+</body>
+
+</html>

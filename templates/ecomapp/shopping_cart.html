@@ -1,0 +1,82 @@
+{% extends "ecomapp/base.html" %} {% load static %} {% block content %}
+<!-- Start of new slider -->
+
+<section class="Shopping">
+    <div class="Shopping_Heading">
+        <h3>Shopping Cart</h3>
+
+        <h4>Shop
+
+        </h4>
+    </div>
+
+    <div class="Shopping_Products">
+        <div id="cart_is_empty" class="Shopping_Products_Cart1" style="display: none;">
+            <img src="../../static/images/noitems.png" alt="Rozai No items" class="Shopping_Products_Cart1_Image" />
+            <h2>There is no items in this shop</h2>
+            <button class="Shopping_Products_Cart1_Button">
+                continue shopping
+            </button>
+        </div>
+        <div id="shopping_list_table" style="display: none" class="Shopping_Products_List">
+            <table class="ProductTable">
+                <thead class="ProductTable_Head">
+                    <tr class="ProductTable_Head_Box">
+                        <th class="ProductTable_Head_Box_Item">Product</th>
+                        <th class="ProductTable_Head_Box_Item2">Qty</th>
+                        <th class="ProductTable_Head_Box_Item1">Total</th>
+                        <th class="ProductTable_Head_Box_Item1">Grand Total</th>
+                        <th class="ProductTable_Head_Box_Item">Remove</th>
+                    </tr>
+                </thead>
+                <tbody id="product_cart_table_body" class="ProductTable_Body">
+
+                </tbody>
+            </table>
+        </div>
+        <div id="shopping_list_price" style="display: none" class="Shopping_Products_Cart">
+            <div class="Shopping_Products_Cart_Heading">
+                <h2>Cart Total</h2>
+                <button onclick="emptyCart()" class="Shopping_Products_Cart_Heading_Button">
+                    <i class="fa-regular fa-trash-can Shopping_Products_Cart_Heading_Button_Logo"></i>
+                </button>
+            </div>
+            <div class="Shopping_Products_Cart_SubTotal">
+                <h4>Subtotal:</h4>
+                <div class="Shopping_Products_Cart_SubTotal_Price">
+                    <p>Rs. </p>
+                    <p id="subtotal_div"></p>
+                </div>
+            </div>
+            <div class="Shopping_Products_Cart_Total">
+                <h3>Total</h3>
+                <div class="Shopping_Products_Cart_Total_Price">
+                    <h3>Rs. </h3>
+                    <h3 id="total_div"></h3>
+                </div>
+            </div>
+            {% if request.user.is_authenticated %}
+            <a class="Shopping_Products_Cart_Button" href="{% url 'ecomapp:billing' %}">
+                <button class="Shopping_Products_Cart_Button_Button1">
+                    Proceed to checkout
+                </button>
+
+            </a>
+            {% else %}
+
+            <a href="{% url 'login' %}?next=/billing" class="Shopping_Products_Cart_Button">
+                <button class="Shopping_Products_Cart_Button_Button1">
+                    Proceed to checkout
+                </button>
+            </a>
+            {% endif %}
+        </div>
+</section>
+
+{% endblock content %}
+
+<!-- JS BLOCK  -->
+{% block jscontent %}
+<script type="text/javascript" src="{% static 'ecomapp/js/custom/shopping_cart.js' %}"></script>
+{% endblock jscontent %}
+<!-- JS BLOCK END -->

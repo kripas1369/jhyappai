@@ -1,0 +1,115 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="../../static/ecomapp/css/bootstrap.min.css">
+    <link rel="stylesheet" href="../../static/ecomapp/css/style.css">
+    <link rel="stylesheet" href="../../static/ecomapp/css/responsive.css">
+    <link rel="stylesheet" href="../../static/ecomapp/css/custom.css">
+    <link rel="stylesheet" href="../../static/ecomapp/css/custon/style.css">
+    <script defer src="https://use.fontawesome.com/releases/v5.15.4/js/all.js"
+        integrity="sha384-rOA1PnstxnOBLzCLMcre8ybwbTmemjzdNlILg8O7z1lUkLXozs4DHonlDtnE7fpc"
+        crossorigin="anonymous"></script>
+    <title>Document</title>
+</head>
+
+<body>
+    <header class="main-header Header">
+        <!-- Start Navigation -->
+        <nav class="navbar navbar-expand-lg navbar-light bg-light navbar-default bootsnav Header_Top">
+            <div class="container">
+                <!-- Start Header Navigation -->
+                <div class="navbar-header">
+                    <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbar-menu"
+                        aria-controls="navbars-rs-food" aria-expanded="false" aria-label="Toggle navigation">
+                        <i class="fa fa-bars"></i>
+                    </button>
+                    <a class="navbar-brand" href="{% url 'ecomapp:home' %}"><img src="{% static 'images/logo.png' %}"
+                            class="logo" alt=""></a>
+                </div>
+                <!-- End Header Navigation -->
+
+                <!-- Collect the nav links, forms, and other content for toggling -->
+                <div class="collapse navbar-collapse" id="navbar-menu">
+                    <ul class="nav navbar-nav ml-auto" data-in="fadeInDown" data-out="fadeOutUp">
+                        <li class="nav-item active" id="home_nav_item"><a class="nav-link"
+                                href="{% url 'ecomapp:home' %}">Home</a></li>
+                        <li class="nav-item" id="aboutus_nav_item"><a class="nav-link"
+                                href="{% url 'ecomapp:about' %}">About Us</a></li>
+                        <li class="nav-item" id="contactus_nav_item"><a class="nav-link"
+                                href="{% url 'ecomapp:contact' %}">Contact Us</a></li>
+                        <!-- {% if request.user.is_authenticated %} -->
+                        <!-- <li class="dropdown">
+                            <a href="#" class="nav-link" data-toggle="dropdown">SHOP</a>
+                            <ul class="dropdown-menu">
+                                <li><a href="shop.html">Sidebar Shop</a></li>
+                                <li><a href="shop-detail.html">Shop Detail</a></li>
+                                <li><a href="cart.html">Cart</a></li>
+                                <li><a href="checkout.html">Checkout</a></li>
+                                <li><a href="my-account.html">My Account</a></li>
+                                <li><a href="wishlist.html">Wishlist</a></li>
+                            </ul>
+                        </li> -->
+                        <li class="nav-item" id="aboutus_nav_item"><a class="nav-link"
+                                href="{% url 'logout' %}">Siginout</a></li>
+                        <!-- {% else %} -->
+                        <li class="nav-item" id="aboutus_nav_item"><a class="nav-link"
+                                href="{% url 'login' %}">Sigin/up</a></li>
+                        <!-- {% endif %} -->
+
+                    </ul>
+                </div>
+                <!-- /.navbar-collapse -->
+
+                <!-- Start Atribute Navigation -->
+                <div class="attr-nav">
+                    <ul>
+                        <li class="search"><a href="#"><i class="fa fa-search"></i></a></li>
+
+                        <!-- {% if request.user.is_authenticated %} -->
+                        <li class="side-menu">
+                            <a href="#">
+                                <i class="fa fa-shopping-bag"></i>
+                                <span class="badge">3</span>
+                                <p>My Cart</p>
+                            </a>
+                        </li>
+                        <!-- {% endif %} -->
+                    </ul>
+                </div>
+                <!-- End Atribute Navigation -->
+            </div>
+
+            <!-- Start Side Menu -->
+            <!-- {% include 'ecomapp/reusable_components/side-checkout.html'%}  -->
+            <!-- End Side Menu -->
+        </nav>
+        <!-- End Navigation -->
+        <ul class="Header_Bottom">
+            <a class="Header_Bottom_Links" href="{% url 'ecomapp:home' %}">
+                Home
+            </a>
+            <li class="Header_Bottom_Links">
+                Flash Sale
+            </li>
+            <li class="Header_Bottom_Links">
+                Groceries
+            </li>
+            <li class="Header_Bottom_Links">
+                Men's Fashion
+            </li>
+            <li class="Header_Bottom_Links">
+                Women's Fashion
+            </li>
+            <li class="Header_Bottom_Links">
+                Sellers
+            </li>
+        </ul>
+    </header>
+
+</body>
+
+</html>

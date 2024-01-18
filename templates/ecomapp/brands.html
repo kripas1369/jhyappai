@@ -1,0 +1,56 @@
+{% extends "ecomapp/base.html" %} {% load static %} {% block content %}
+<!-- Start of new slider -->
+
+<section class="Categories">
+    <div class="Categories_Heading">
+        <h2>Brands</h2>
+    </div>
+    <div class="Categories_Box">
+        {% for brand in brands %}
+        <a class="Categories_Box_Itemm">
+        <div class="Categories_Box_Item">
+            <img src="{{brand.image}}" alt="Rozai Product Image" class="Categories_Box_Item_Image" />
+            <div class="Categories_Box_Item_Span">
+                <p>{{brand.title}}</p>
+            </div>
+        </div>
+        </a>
+        {% endfor %}
+    </div>
+
+    <div class="Wishlist_Pagination">
+        <div class="Wishlist_Pagination_Items">
+            {% if brands.has_previous %}
+            <a href="?page={{ brands.previous_page_number }}" class="Wishlist_Pagination_Items_Box">
+                <i class="fa-solid fa-angle-left Wishlist_Pagination_Items_Box_Icon"></i>
+            </a>
+            {% else %}
+
+            <i class="fa-solid fa-angle-left Wishlist_Pagination_Items_Box_Disable"></i>
+            {% endif %} {% for i in brands.paginator.page_range %}
+            {% if brands.number == i %}
+            <div class="Wishlist_Pagination_Items_Item">{{i}}</div>
+            {% else %}
+            <div class="Wishlist_Pagination_Items_Item_Disable">
+                <a style="font-size: 23px" href="?page={{ i }}">{{ i }}</a>
+            </div>
+            {% endif %} {% endfor %} {% if brands.has_next %}
+            <a href="?page={{brands.next_page_number }}" class="Wishlist_Pagination_Items_Box">
+                <i class="fa-solid fa-angle-right Wishlist_Pagination_Items_Box_Icon"></i>
+            </a>
+            {% else %}
+            <a class="Wishlist_Pagination_Items_Item_Disable">
+                <i class="fa-solid fa-angle-right Wishlist_Pagination_Items_Box_Icon"></i>
+            </a>
+            {% endif %}
+        </div>
+    </div>
+</section>
+
+{% endblock content %}
+
+<!-- JS BLOCK  -->
+{% block jscontent %}
+<script type="text/javascript" src="{% static 'ecomapp/js/custom/categories.js' %}"></script>
+{% endblock jscontent %}
+<!-- JS BLOCK END -->

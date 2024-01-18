@@ -1,0 +1,77 @@
+{% extends "ecomapp/base.html" %}
+{% load static %} {% block content %}
+<!-- Start of new slider -->
+<section class="Categories">
+    <div class="Categories_Heading">
+        <p>Search</p>
+    </div>
+    <div class="Categories_Box">
+        {% for product in products %}
+        <a href="{% url 'ecomapp:product_detail' product.slug %}" class="Categories_Box_Itemm">
+
+        <div class="Categories_Box_Item">
+            <img src="{{product.image1}}" alt="Rozai Product Image" class="Categories_Box_Item_Image" />
+            <div class="Categories_Box_Item_Title">
+                <h3>{{product.title | truncatechars:10}}</h3>
+            </div>
+            <div class="Categories_Box_Item_Span">
+                <p>
+        
+                  Rs.{{product.price|floatformat:2}}
+                </p>
+              </div>
+    
+              <div class="Categories_Box_Item_Text">
+                <p>
+                  Rs. {{product.get_final_price_after_discount|floatformat:2}}
+                </p>
+                <span>-{{product.discount}}%</span>
+              </div>
+        </div>
+    </a>
+        {% endfor %}
+
+    </div>
+    <div class="Wishlist_Pagination">
+        <div class="Wishlist_Pagination_Items">
+
+            {% if products.has_previous %}
+            <a href="?page={{ products.previous_page_number }}" class="Wishlist_Pagination_Items_Box">
+                <i class="fa-solid fa-angle-left Wishlist_Pagination_Items_Box_Icon"></i>
+            </a>
+            {% else %}
+
+            <i class="fa-solid fa-angle-left Wishlist_Pagination_Items_Box_Disable"></i>
+            {% endif %}
+
+            {% for i in products.paginator.page_range %}
+            {% if products.number == i %}
+            <div class="Wishlist_Pagination_Items_Item">
+                {{i}}
+            </div>
+            {% else %}
+            <div class="Wishlist_Pagination_Items_Item_Disable">
+                <a style="font-size: 23px" href="?page={{ i }}">{{ i }}</a>
+            </div>
+            {% endif %} {% endfor %}
+            {% if products.has_next %}
+            <a href="?page={{products.next_page_number }}" class="Wishlist_Pagination_Items_Box">
+                <i class="fa-solid fa-angle-right Wishlist_Pagination_Items_Box_Icon"></i>
+            </a>
+            {% else %}
+            <a class="Wishlist_Pagination_Items_Item_Disable">
+                <i class="fa-solid fa-angle-right Wishlist_Pagination_Items_Box_Icon"></i>
+            </a>
+            {% endif %}
+        </div>
+    </div>
+    </div>
+</section>
+
+{% endblock content %}
+
+<!-- JS BLOCK  -->
+{% block jscontent %}
+
+{% endblock jscontent %}
+<!-- JS BLOCK END -->

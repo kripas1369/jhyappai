@@ -1,0 +1,98 @@
+{% extends "ecomapp/base.html" %} {% load static %} {% block content %}
+<!-- Start of new slider -->
+
+<section class="Wishlist">
+    <div class="Wishlist_Heading">
+        <div class="Wishlist_Heading_Box">
+            <h3>My Wishlist</h3>
+        </div>
+    </div>
+    <div class="Wishlist_Box">
+        <div class="Wishlist_Box_Heading">
+            <h5>Wishlist</h5>
+        </div>
+        <form method="post" id="wishlist_form" class="Wishlist_Box_Items">
+            {% csrf_token %}
+            <input name="delete_or_add_to_cart" style="display: none" id="delete_or_add_to_cart" value="" />
+            <input name="wishlist_id" id="wishlist_id" style="display: none" value="" />
+
+            {% if wlists.count == 0 %}
+            <div id="cart_is_empty" class="Shopping_Products_Cart1">
+                <img src="../../static/images/noitems.png" alt="Rozai No items" class="Shopping_Products_Cart1_Image" />
+                <h2>There is no items in this shop</h2>
+                <button class="Shopping_Products_Cart1_Button">
+                    shopping
+                </button>
+            </div>
+            {% else %}
+
+            {% for wishlist in wlists %}
+            <div class="Wishlist_Box_Items_Item">
+                <div class="Wishlist_Box_Items_Item_Left">
+                    <img src="{{wishlist.product.image1}}" alt="Wishlist images"
+                        class="Wishlist_Box_Items_Item_Left_Image" />
+                    <div class="Wishlist_Box_Items_Item_Left_Box">
+                        <p>{{wishlist.product.title}}</p>
+                        <i onclick="removeFromWishlist('{{wishlist.id}}')"
+                            class="fa-regular fa-trash-can Wishlist_Box_Items_Item_Left_Box_Logo"></i>
+                    </div>
+                </div>
+                <div class="Wishlist_Box_Items_Item_Right">
+                    <div class="Wishlist_Box_Items_Item_Right_Price">
+                        <div class="Wishlist_Box_Items_Item_Right_Price_Price">
+                            <h4>Rs.</h4>
+                            <h4>{{wishlist.product.get_final_price_after_discount|floatformat:2}}</h4>
+                        </div>
+                        <div class="Wishlist_Box_Items_Item_Right_Price_Discount">
+                            <h4>Rs. {{wishlist.product.price|floatformat:2}}</h4>
+                            <h4>{{wishlist.product.discount}}%</h4>
+                        </div>
+                    </div>
+                    <div class="Wishlist_Box_Items_Item_Right_Add">
+                        <i onclick="addToCart('{{wishlist.product.title}}','{{wishlist.product.slug}}',
+                        '{{wishlist.product.id}}','{{wishlist.product.image1}}','{{wishlist.product.get_final_price_after_discount|floatformat:2}}','1')"
+                            class="fa-solid fa-cart-shopping Wishlist_Box_Items_Item_Right_Add_Logo"></i>
+                    </div>
+                </div>
+            </div>
+            {% endfor %}
+
+            {% endif %}
+        </form>
+    </div>
+    <div class="Wishlist_Pagination">
+        <div class="Wishlist_Pagination_Items">
+            {% if wlists.has_previous %}
+            <a href="?page={{ wlists.previous_page_number }}" class="Wishlist_Pagination_Items_Box">
+                <i class="fa-solid fa-angle-left Wishlist_Pagination_Items_Box_Icon"></i>
+            </a>
+            {% else %}
+            <i class="fa-solid fa-angle-left Wishlist_Pagination_Items_Box_Disable"></i>
+            {% endif %} {% for i in wlists.paginator.page_range %} {% if wlists.number == i %}
+            <div class="Wishlist_Pagination_Items_Item">
+                {{i}}
+            </div>
+            {% else %}
+            <div class="Wishlist_Pagination_Items_Item_Disable">
+                <a style="font-size: 23px" href="?page={{ i }}">{{ i }}</a>
+            </div>
+            {% endif %} {% endfor %} {% if wlists.has_next %}
+            <a href="?page={{wlists.next_page_number }}" class="Wishlist_Pagination_Items_Box">
+                <i class="fa-solid fa-angle-right Wishlist_Pagination_Items_Box_Icon"></i>
+            </a>
+            {% else %}
+            <a class="Wishlist_Pagination_Items_Item_Disable">
+                <i class="fa-solid fa-angle-right Wishlist_Pagination_Items_Box_Icon"></i>
+            </a>
+            {% endif %}
+        </div>
+    </div>
+</section>
+
+{% endblock content %}
+
+<!-- JS BLOCK  -->
+{% block jscontent %}
+<script type="text/javascript" src="{% static 'ecomapp/js/custom/wishlist.js' %}"></script>
+{% endblock jscontent %}
+<!-- JS BLOCK END -->

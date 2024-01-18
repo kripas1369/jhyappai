@@ -1,0 +1,665 @@
+{% extends "ecomapp/base.html" %} {% load static %}
+
+{% block title %}
+<title>Home</title>
+{% endblock title %}
+
+
+{% block content %}
+<!-- Start of new slider -->
+
+
+<section class="Home" id="home_section">
+  <div class="Home_Top">
+    <div class="Home_Top_Categories" onmouseover="hoverCategory()" onmouseout="outFromCategory()">
+      <div class="Home_Top_Categories_Heading">
+        <i class="fa-solid fa-bars Home_Top_Categories_Heading_Logo"></i>
+        <h3>
+          <a href="{% url 'ecomapp:category_list' %}">
+            Categories
+          </a>
+        </h3>
+      </div>
+      <div class="Home_Top_Categories_Box" id="CategoryBox">
+        {% for category in categories %}
+        {% if category.has_any_sub_categ == True %}
+        <div class="Home_Top_Categories_Box_Text" onclick="showCategoryDiv('{{category.id}}')">
+          <p class="Home_Top_Categories_Box_Text_Paragraph">
+            <a href="{% url 'ecomapp:category_detail' category.slug %}">
+              {{category}}
+            </a>
+            <i  class="fa-solid fa-angle-right Home_Top_Categories_Box_Text_Right"></i>
+          </p>
+          
+          <!-- start of subcategories -->
+  
+          <!-- End of subcategories -->
+        </div>
+        {% for category in categories %}
+        <div style="display: none;" id="sub_category_div_{{category.id}}" class="Home_Top_SubCategories">
+          {% for sub in category.get_all_sub_categories %}
+          <p>
+            <a href="{% url 'ecomapp:sub_category_detail' sub.slug %}">
+            {{sub.title}}
+          </a>
+          </p>
+          <br />
+          {% endfor %}
+        </div>
+        {% endfor %}
+        {% else %}
+        <div class="Home_Top_Categories_Box_Text">
+          <p class="Home_Top_Categories_Box_Text_Paragraph">
+            <a href="{% url 'ecomapp:category_detail' category.slug %}">
+              {{category}}
+            </a>
+          </p>
+        </div>
+        {% endif %}
+        {% endfor %}
+      </div>
+    </div>
+
+    <div class="Home_Top_Wrap">
+      <div class="Home_Top_Main">
+        <div class="wrappers">
+          <img class="slides" src="{% static 'images/banner-01.jpg' %} " />
+          <img class="slides" src="{% static 'images/banner-02.jpg' %} " />
+          <img class="slides" src="{% static 'images/banner-03.jpg' %} " />
+        </div>
+        <div class="Home_Top_Main_Buttons">
+          <button class="Home_Top_Main_Buttons_Button" id="buttonLeft" onclick="sliderLeft()">
+            <i class="fa fa-angle-left fa-2x Home_Top_Main_Buttons_Button_Icons" aria-hidden="true"></i>
+          </button>
+          <button id="buttonRight" class="Home_Top_Main_Buttons_Button" onclick='sliderRight()'>
+            <i class="fa fa-angle-right fa-2x Home_Top_Main_Buttons_Button_Icons" aria-hidden="true"></i>
+          </button>
+        </div>
+        <div class="Home_Top_Main_Index">
+          <div class="Home_Top_Main_Index_Dots" id="1"></div>
+          <div class="Home_Top_Main_Index_Dots" id="2"></div>
+          <div class="Home_Top_Main_Index_Dots" id="3"></div>
+        </div>
+      </div>
+      <div class="Home_Top_Main_Boxes">
+        <div class="Home_Top_Main_Boxes_Box">
+          <img src="../../static/images/banner-02.jpg" alt="Rozai Brands" class="Home_Top_Main_Boxes_Box_Image">
+          <h3>Men's Fashion</h3>
+        </div>
+        <div class="Home_Top_Main_Boxes_Box">
+          <img src="../../static/images/banner-02.jpg" alt="Rozai Brands" class="Home_Top_Main_Boxes_Box_Image">
+          <h3>Men's Fashion</h3>
+        </div>
+      </div>
+    </div>
+
+    <div class="Home_Top_Today">
+      <div class="Home_Top_Today_Heading">
+        <h3>Todays Deal</h3>
+      </div>
+      <div class="Home_Top_Today_Box">
+        {% for today in todays_deals %}
+
+        <div class="Home_Top_Today_Box_Item">
+          <img src="{{today.image1}}" alt="Box Item image" class="Home_Top_Today_Box_Item_Image">
+          <div class="Home_Top_Today_Box_Item_Price">
+            <h3>Rs. {{today.get_final_price_after_discount|floatformat:2}}</h3>
+            <h4>Rs. {{today.price}}</h4>
+          </div>
+        </div>
+
+        {% endfor %}
+
+
+      </div>
+    </div>
+  </div>
+
+  </div>
+</section>
+
+<!-- Start Best Selling -->
+<div class="Home_Products">
+  <div class="Home_Products_Heading">
+    <h3>Latest Products</h3>
+    <button class="Home_Products_Heading_Button">
+      <p>
+        <a href="{% url 'ecomapp:lastest_products' %}">
+          View All
+        </a>
+      </p>
+
+      <i class="fa-solid fa-arrow-right Home_Products_Heading_Button_Logo"></i>
+    </button>
+  </div>
+  <div class="Home_Products_Boxes">
+    <div class="Home_Products_Boxes_Button">
+      <button style="display: none;" class="Home_Products_Boxes_Button_Left" id="scroll_left_latest_product"
+        onclick='buttonLeftClick("latest_product")'>
+        <i class="fa fa-angle-left fa-2x Home_Products_Boxes_Button_Left_Icon" aria-hidden="true"></i>
+      </button>
+      <button style="display: none;" class="Home_Products_Boxes_Button_Right" id="scroll_right_latest_product"
+        onclick='buttonRightClick("latest_product")'>
+        <i class="fa fa-angle-right fa-2x Home_Products_Boxes_Button_Right_Icon" aria-hidden="true"></i>
+      </button>
+    </div>
+
+
+    <div class="Home_Products_Box" id="main_box_latest_product" onmouseover='hoverBox("latest_product")'>
+
+
+      {% for latest_product in latest_products %}
+        <a  href="{% url 'ecomapp:product_detail' latest_product.slug %}" class="Home_Products_Box_Item" onmouseover="to_the_product_item(`{{latest_product.title}}`)" onmouseout="out_from_product_item(`{{latest_product.title}}`)" >
+          <div class="Home_Products_Box_Item_ImageBox">
+            <img src="{{latest_product.image1}}" alt="" class="Home_Products_Box_Item_ImageBox_Image" />
+            <!-- <div class="Home_Products_Box_Item_ImageBox_Cart" id="add_to_cart_{{latest_product.title}}" style="display: none;">
+              <p>Add To Cart</p>
+            </div> -->
+          </div>
+         
+          
+          <div class="Home_Products_Box_Item_Span">
+
+            <p>
+              {{latest_product.title}}
+            </p>
+            {% if latest_product.discount == 0.0 %}
+            <span>Rs {{latest_product.price|floatformat:2}}</span>
+            {% else %}
+            <span>Rs {{latest_product.get_final_price_after_discount|floatformat:2}} </span>
+            <div class="Home_Products_Box_Item_Text">
+              <p>Rs {{latest_product.price|floatformat:2}}</p>
+              <span>-{{latest_product.discount}}%</span>
+            </div>
+            {% endif %}
+
+          </div>
+        </a>
+      {% endfor %}
+
+    </div>
+
+  </div>
+
+</div>
+
+
+
+
+<!-- Start Two Images-->
+<div class="Home_Images">
+  <img src="../../static/images/laptop.png" alt="laptop image" class="Home_Images_Image">
+  <img src="../../static/images/refrigerator.png" alt="laptop image" class="Home_Images_Image">
+</div>
+
+<!-- End of two images -->
+
+<!-- Start Men's Fashion-->
+{% for home_category in home_category_products %}
+{% if home_category.products %}
+<div class="Home_Products">
+
+  <div class="Home_Products_Heading">
+    <h3>{{home_category.category_name}}</h3>
+    <button class="Home_Products_Heading_Button">
+      <p>
+        <a href="{% url 'ecomapp:category_detail' home_category.category_slug %}">
+          View All
+        </a>
+
+      </p>
+      <i class="fa-solid fa-arrow-right Home_Products_Heading_Button_Logo"></i>
+    </button>
+
+  </div>
+  <div class="Home_Products_Boxes">
+    <div class="Home_Products_Boxes_Button">
+      <button style="display: none;" class="Home_Products_Boxes_Button_Left"
+        id="scroll_left_{{home_category.category_name}}" onclick='buttonLeftClick(`{{home_category.category_name}}`)'>
+        <i class="fa fa-angle-left fa-2x Home_Products_Boxes_Button_Left_Icon" aria-hidden="true"></i>
+      </button>
+      <button style="display: none;" class="Home_Products_Boxes_Button_Right"
+        id="scroll_right_{{home_category.category_name}}" onclick='buttonRightClick(`{{home_category.category_name}}`)'>
+        <i class="fa fa-angle-right fa-2x Home_Products_Boxes_Button_Right_Icon" aria-hidden="true"></i>
+      </button>
+    </div>
+    <div class="Home_Products_Box" id="main_box_{{home_category.category_name}}"
+      onmouseover='hoverBox(`{{home_category.category_name}}`)'>
+      {% for product in home_category.products %}
+        <a href="{% url 'ecomapp:product_detail' product.slug %}" class="Home_Products_Box_Item" onmouseover="to_the_product_item(`{{home_category.category_name}}_{{product.title}}`)" onmouseout="out_from_product_item(`{{home_category.category_name}}_{{product.title}}`)">
+          <div class="Home_Products_Box_Item_ImageBox">
+            <img src="{{product.image1}}" alt="" class="Home_Products_Box_Item_ImageBox_Image" />
+            <!-- <div class="Home_Products_Box_Item_ImageBox_Cart" id="add_to_cart_{{home_category.category_name}}_{{product.title}}" style="display: none;">
+              <p>Add To Cart</p>
+            </div> -->
+          </div>
+          <div class="Home_Products_Box_Item_Span">
+            <p>
+              <!-- <a href="{% url 'ecomapp:product_detail' product.slug %}">{{product.title |truncatechars:30 }}</a> -->
+              {{product.title | truncatechars:30}}
+            </p>
+            {% if product.discount == 0.0 %}
+            <span>Rs {{product.price|floatformat:2}}</span>
+            {% else %}
+
+            <span>Rs {{product.get_final_price_after_discount|floatformat:2}} </span>
+
+            <div class="Home_Products_Box_Item_Text">
+              <p>Rs {{product.price}}</p>
+              <span>-{{product.discount}}%</span>
+            </div>
+            {% endif %}
+          </div>
+        </a>
+      {% endfor %}
+    </div>
+  </div>
+</div>
+{% else %}
+{% endif %}
+
+{% endfor %}
+<!-- End Men's Fashion -->
+
+
+<!-- POPULAR BRANDS -->
+<div class="Home_TopBrand">
+  <div class="Home_TopBrand_Heading">
+    <h3>Popular Brands</h3>
+    <button class="Home_TopBrand_Heading_Button">
+      <p>
+        <a href="{% url 'ecomapp:brand_list' %}">
+          View All
+        </a>
+      </p>
+
+      <i class="fa-solid fa-arrow-right Home_TopBrand_Heading_Button_Logo"></i>
+    </button>
+  </div>
+  <div class="Home_TopBrand_Box">
+    {%for brand in brands%}
+    <div class="Home_TopBrand_Box_Item">
+      <h3>{{brand.title}}</h3>
+      <img src="{{brand.image}}" alt="{{brand.thumbnail}}" class="Home_TopBrand_Box_Item_Image" />
+    </div>
+    {% endfor %}
+
+  </div>
+</div>
+
+<!-- Start of banners -->
+
+<div class="Home_Images">
+  <img src="../../static/images/laptop.png" alt="laptop image" class="Home_Images_Image">
+  <img src="../../static/images/refrigerator.png" alt="laptop image" class="Home_Images_Image">
+</div>
+
+<!-- End of banners -->
+
+
+<!-- Start top categories -->
+
+
+<div class="Home_TopBrand">
+  <div class="Home_TopBrand_Heading">
+    <h3>Popular categories</h3>
+    <button class="Home_TopBrand_Heading_Button">
+      <a href="{% url 'ecomapp:category_list' %}">
+        <p>
+          <a href="{% url 'ecomapp:category_list' %}">
+            View All
+          </a>
+        </p>
+      </a>
+      <i class="fa-solid fa-arrow-right Home_TopBrand_Heading_Button_Logo"></i>
+    </button>
+  </div>
+  <div class="Home_TopBrand_Box">
+    {%for category in popular_categories%}
+    <div class="Home_TopBrand_Box_Item">
+      <h3>
+        <a href="{% url 'ecomapp:category_detail' category.slug %}">
+          {{category.title}}
+        </a>
+      </h3>
+      <img src="{{category.image}}" alt="Rozai {{category.thumbnail}}" class="Home_TopBrand_Box_Item_Image" />
+    </div>
+    {% endfor %}
+
+  </div>
+</div>
+<!-- End top categories -->
+
+
+
+<!--Start Shipping -->
+
+<div class="Home_Shipping">
+  <div class="Home_Shipping_Box">
+    <img src="../../static/images/home/freeshipping.png" alt="Rozai Free Shipping" class="Home_Shipping_Box_Logo">
+    <div class="Home_Shipping_Box_Text">
+      <h3>Free Shipping</h3>
+      <p>Free shipping for all our products</p>
+    </div>
+
+  </div>
+  <div class="Home_Shipping_Box">
+    <img src="../../static/images/home/guarantee.png" alt="Rozai Free Shipping" class="Home_Shipping_Box_Logo">
+    <!-- <div class="Home_Shipping_Box_Logo">
+
+ </div> -->
+    <div class="Home_Shipping_Box_Text">
+      <h3>24/7 Guarantee</h3>
+      <p>We take full guarantee of our products</p>
+    </div>
+
+  </div>
+  <div class="Home_Shipping_Box">
+    <img src="../../static/images/home/payment.png" alt="Rozai Free Shipping" class="Home_Shipping_Box_Logo">
+    <!-- <div class="Home_Shipping_Box_Logo">
+
+ </div> -->
+    <div class="Home_Shipping_Box_Text">
+      <h3>Easy Payment</h3>
+      <p>We accept all debit and credit cards</p>
+    </div>
+
+  </div>
+</div>
+
+<!--End Shipping -->
+
+
+<!-- Start SubCategory -->
+<div class="Home_TopBrand">
+  <div class="Home_TopBrand_Heading">
+    <h3>Popular Sub Category</h3>
+  </div>
+  <div class="Home_TopBrand_Box">
+    {%for sub_category in sub_categories%}
+    <div class="Home_TopBrand_Box_Item">
+      <h3>
+        <a href="{% url 'ecomapp:sub_category_detail' sub_category.slug %}">{{sub_category.title}}</a>
+      </h3>
+      <img src="{{sub_category.image}}" alt="{{sub_category.thumbnail}}" class="Home_TopBrand_Box_Item_Image" />
+    </div>
+    {% endfor %}
+
+  </div>
+</div>
+
+<!-- <div class="Home_Products">
+  <div class="Home_Products_Heading">
+    <h3>Trending</h3>
+    <button class="Home_Products_Heading_Button">
+      <p>View All</p>
+      <i class="fa-solid fa-arrow-right Home_Products_Heading_Button_Logo"></i>
+    </button>
+  </div>
+  <div class="Home_Products_Box1">
+    <div class="Home_Products_Box1_Item">
+      <img src="../../static/images/big-img-01.jpg" alt="" class="Home_Products_Box1_Item_Image" />
+      <p>Bluetooth Wireless in Ear Earbuds with Mic Bluetooth Wireless in Ear Earbuds with Mic 1</p>
+      <span>Rs 18000</span>
+      <div class="Home_Products_Box1_Item_Text">
+        <p>Rs. 20000</p>
+        <span>-10%</span>
+      </div>
+
+    </div>
+    <div class="Home_Products_Box1_Item">
+      <img src="../../static/images/big-img-01.jpg" alt="" class="Home_Products_Box1_Item_Image" />
+      <p>Bluetooth Wireless in Ear Earbuds with Mic Bluetooth Wireless in Ear Earbuds with Mic 1</p>
+      <span>Rs 18000</span>
+      <div class="Home_Products_Box1_Item_Text">
+        <p>Rs. 20000</p>
+        <span>-10%</span>
+      </div>
+
+    </div>
+    <div class="Home_Products_Box1_Item">
+      <img src="../../static/images/big-img-01.jpg" alt="" class="Home_Products_Box1_Item_Image" />
+      <p>Bluetooth Wireless in Ear Earbuds with Mic Bluetooth Wireless in Ear Earbuds with Mic 1</p>
+      <span>Rs 18000</span>
+      <div class="Home_Products_Box1_Item_Text">
+        <p>Rs. 20000</p>
+        <span>-10%</span>
+      </div>
+
+    </div>
+    <div class="Home_Products_Box1_Item">
+      <img src="../../static/images/big-img-01.jpg" alt="" class="Home_Products_Box1_Item_Image" />
+      <p>Bluetooth Wireless in Ear Earbuds with Mic Bluetooth Wireless in Ear Earbuds with Mic 1</p>
+      <span>Rs 18000</span>
+      <div class="Home_Products_Box1_Item_Text">
+        <p>Rs. 20000</p>
+        <span>-10%</span>
+      </div>
+
+    </div>
+    <div class="Home_Products_Box1_Item">
+      <img src="../../static/images/big-img-01.jpg" alt="" class="Home_Products_Box1_Item_Image" />
+      <p>Bluetooth Wireless in Ear Earbuds with Mic Bluetooth Wireless in Ear Earbuds with Mic 1</p>
+      <span>Rs 18000</span>
+      <div class="Home_Products_Box1_Item_Text">
+        <p>Rs. 20000</p>
+        <span>-10%</span>
+      </div>
+
+    </div>
+    <div class="Home_Products_Box1_Item">
+      <img src="../../static/images/big-img-01.jpg" alt="" class="Home_Products_Box1_Item_Image" />
+      <p>Bluetooth Wireless in Ear Earbuds with Mic Bluetooth Wireless in Ear Earbuds with Mic 1</p>
+      <span>Rs 18000</span>
+      <div class="Home_Products_Box1_Item_Text">
+        <p>Rs. 20000</p>
+        <span>-10%</span>
+      </div>
+
+    </div>
+    <div class="Home_Products_Box1_Item">
+      <img src="../../static/images/big-img-01.jpg" alt="" class="Home_Products_Box1_Item_Image" />
+      <p>Bluetooth Wireless in Ear Earbuds with Mic Bluetooth Wireless in Ear Earbuds with Mic 1</p>
+      <span>Rs 18000</span>
+      <div class="Home_Products_Box1_Item_Text">
+        <p>Rs. 20000</p>
+        <span>-10%</span>
+      </div>
+
+    </div>
+    <div class="Home_Products_Box1_Item">
+      <img src="../../static/images/big-img-01.jpg" alt="" class="Home_Products_Box1_Item_Image" />
+      <p>Bluetooth Wireless in Ear Earbuds with Mic Bluetooth Wireless in Ear Earbuds with Mic 1</p>
+      <span>Rs 18000</span>
+      <div class="Home_Products_Box1_Item_Text">
+        <p>Rs. 20000</p>
+        <span>-10%</span>
+      </div>
+
+    </div>
+    <div class="Home_Products_Box1_Item">
+      <img src="../../static/images/big-img-01.jpg" alt="" class="Home_Products_Box1_Item_Image" />
+      <p>Bluetooth Wireless in Ear Earbuds with Mic Bluetooth Wireless in Ear Earbuds with Mic 1</p>
+      <span>Rs 18000</span>
+      <div class="Home_Products_Box1_Item_Text">
+        <p>Rs. 20000</p>
+        <span>-10%</span>
+      </div>
+
+    </div>
+    <div class="Home_Products_Box1_Item">
+      <img src="../../static/images/big-img-01.jpg" alt="" class="Home_Products_Box1_Item_Image" />
+      <p>Bluetooth Wireless in Ear Earbuds with Mic Bluetooth Wireless in Ear Earbuds with Mic 1</p>
+      <span>Rs 18000</span>
+      <div class="Home_Products_Box1_Item_Text">
+        <p>Rs. 20000</p>
+        <span>-10%</span>
+      </div>
+
+    </div>
+    <div class="Home_Products_Box1_Item">
+      <img src="../../static/images/big-img-01.jpg" alt="" class="Home_Products_Box1_Item_Image" />
+      <p>Bluetooth Wireless in Ear Earbuds with Mic Bluetooth Wireless in Ear Earbuds with Mic 1</p>
+      <span>Rs 18000</span>
+      <div class="Home_Products_Box1_Item_Text">
+        <p>Rs. 20000</p>
+        <span>-10%</span>
+      </div>
+
+    </div>
+    <div class="Home_Products_Box1_Item">
+      <img src="../../static/images/big-img-01.jpg" alt="" class="Home_Products_Box1_Item_Image" />
+      <p>Bluetooth Wireless in Ear Earbuds with Mic Bluetooth Wireless in Ear Earbuds with Mic 1</p>
+      <span>Rs 18000</span>
+      <div class="Home_Products_Box1_Item_Text">
+        <p>Rs. 20000</p>
+        <span>-10%</span>
+      </div>
+
+    </div>
+
+    <div class="Home_Products_Box1_Item">
+      <img src="../../static/images/big-img-01.jpg" alt="" class="Home_Products_Box1_Item_Image" />
+      <p>Bluetooth Wireless in Ear Earbuds with Mic Bluetooth Wireless in Ear Earbuds with Mic 1</p>
+      <span>Rs 18000</span>
+      <div class="Home_Products_Box1_Item_Text">
+        <p>Rs. 20000</p>
+        <span>-10%</span>
+      </div>
+
+    </div>
+    <div class="Home_Products_Box1_Item">
+      <img src="../../static/images/big-img-01.jpg" alt="" class="Home_Products_Box1_Item_Image" />
+      <p>Bluetooth Wireless in Ear Earbuds with Mic Bluetooth Wireless in Ear Earbuds with Mic 1</p>
+      <span>Rs 18000</span>
+      <div class="Home_Products_Box1_Item_Text">
+        <p>Rs. 20000</p>
+        <span>-10%</span>
+      </div>
+
+    </div>
+    <div class="Home_Products_Box1_Item">
+      <img src="../../static/images/big-img-01.jpg" alt="" class="Home_Products_Box1_Item_Image" />
+      <p>Bluetooth Wireless in Ear Earbuds with Mic Bluetooth Wireless in Ear Earbuds with Mic 1</p>
+      <span>Rs 18000</span>
+      <div class="Home_Products_Box1_Item_Text">
+        <p>Rs. 20000</p>
+        <span>-10%</span>
+      </div>
+
+    </div>
+    <div class="Home_Products_Box1_Item">
+      <img src="../../static/images/big-img-01.jpg" alt="" class="Home_Products_Box1_Item_Image" />
+      <p>Bluetooth Wireless in Ear Earbuds with Mic Bluetooth Wireless in Ear Earbuds with Mic 1</p>
+      <span>Rs 18000</span>
+      <div class="Home_Products_Box1_Item_Text">
+        <p>Rs. 20000</p>
+        <span>-10%</span>
+      </div>
+
+    </div>
+    <div class="Home_Products_Box1_Item">
+      <img src="../../static/images/big-img-01.jpg" alt="" class="Home_Products_Box1_Item_Image" />
+      <p>Bluetooth Wireless in Ear Earbuds with Mic Bluetooth Wireless in Ear Earbuds with Mic 1</p>
+      <span>Rs 18000</span>
+      <div class="Home_Products_Box1_Item_Text">
+        <p>Rs. 20000</p>
+        <span>-10%</span>
+      </div>
+
+    </div>
+    <div class="Home_Products_Box1_Item">
+      <img src="../../static/images/big-img-01.jpg" alt="" class="Home_Products_Box1_Item_Image" />
+      <p>Bluetooth Wireless in Ear Earbuds with Mic Bluetooth Wireless in Ear Earbuds with Mic 1</p>
+      <span>Rs 18000</span>
+      <div class="Home_Products_Box1_Item_Text">
+        <p>Rs. 20000</p>
+        <span>-10%</span>
+      </div>
+
+    </div>
+    <div class="Home_Products_Box1_Item">
+      <img src="../../static/images/big-img-01.jpg" alt="" class="Home_Products_Box1_Item_Image" />
+      <p>Bluetooth Wireless in Ear Earbuds with Mic Bluetooth Wireless in Ear Earbuds with Mic 1</p>
+      <span>Rs 18000</span>
+      <div class="Home_Products_Box1_Item_Text">
+        <p>Rs. 20000</p>
+        <span>-10%</span>
+      </div>
+
+    </div>
+    <div class="Home_Products_Box1_Item">
+      <img src="../../static/images/big-img-01.jpg" alt="" class="Home_Products_Box1_Item_Image" />
+      <p>Bluetooth Wireless in Ear Earbuds with Mic Bluetooth Wireless in Ear Earbuds with Mic 1</p>
+      <span>Rs 18000</span>
+      <div class="Home_Products_Box1_Item_Text">
+        <p>Rs. 20000</p>
+        <span>-10%</span>
+      </div>
+
+    </div>
+    <div class="Home_Products_Box1_Item">
+      <img src="../../static/images/big-img-01.jpg" alt="" class="Home_Products_Box1_Item_Image" />
+      <p>Bluetooth Wireless in Ear Earbuds with Mic Bluetooth Wireless in Ear Earbuds with Mic 1</p>
+      <span>Rs 18000</span>
+      <div class="Home_Products_Box1_Item_Text">
+        <p>Rs. 20000</p>
+        <span>-10%</span>
+      </div>
+
+    </div>
+    <div class="Home_Products_Box1_Item">
+      <img src="../../static/images/big-img-01.jpg" alt="" class="Home_Products_Box1_Item_Image" />
+      <p>Bluetooth Wireless in Ear Earbuds with Mic Bluetooth Wireless in Ear Earbuds with Mic 1</p>
+      <span>Rs 18000</span>
+      <div class="Home_Products_Box1_Item_Text">
+        <p>Rs. 20000</p>
+        <span>-10%</span>
+      </div>
+
+    </div>
+    <div class="Home_Products_Box1_Item">
+      <img src="../../static/images/big-img-01.jpg" alt="" class="Home_Products_Box1_Item_Image" />
+      <p>Bluetooth Wireless in Ear Earbuds with Mic Bluetooth Wireless in Ear Earbuds with Mic 1</p>
+      <span>Rs 18000</span>
+      <div class="Home_Products_Box1_Item_Text">
+        <p>Rs. 20000</p>
+        <span>-10%</span>
+      </div>
+
+    </div>
+    <div class="Home_Products_Box1_Item">
+      <img src="../../static/images/big-img-01.jpg" alt="" class="Home_Products_Box1_Item_Image" />
+      <p>Bluetooth Wireless in Ear Earbuds with Mic Bluetooth Wireless in Ear Earbuds with Mic 1</p>
+      <span>Rs 18000</span>
+      <div class="Home_Products_Box1_Item_Text">
+        <p>Rs. 20000</p>
+        <span>-10%</span>
+      </div>
+
+    </div>
+    <div class="Home_Products_Box1_Item">
+      <img src="../../static/images/big-img-01.jpg" alt="" class="Home_Products_Box1_Item_Image" />
+      <p>Bluetooth Wireless in Ear Earbuds with Mic Bluetooth Wireless in Ear Earbuds with Mic 1</p>
+      <span>Rs 18000</span>
+      <div class="Home_Products_Box1_Item_Text">
+        <p>Rs. 20000</p>
+        <span>-10%</span>
+      </div>
+
+    </div>
+  </div>
+  <div class="Home_Products_LoadMore">
+    <button class="Home_Products_LoadMore_Button">
+      Load More
+    </button>
+  </div>
+</div> -->
+<!-- End Just for You -->
+
+{% endblock content %}
+
+{% block jscontent %}
+<script type="text/javascript" src="{% static 'ecomapp/js/custom/addtocart.js' %}"></script>
+<script type="text/javascript" src="{% static 'ecomapp/js/custom/home.js' %}"></script>
+{% endblock jscontent %}

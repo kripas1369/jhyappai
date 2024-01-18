@@ -1,0 +1,25 @@
+{
+    "name": "orbindacom",
+    "version": "1.0.0",
+    "description": "",
+    "main": "index.js",
+    "scripts": {
+      "test": "echo \"Error: no test specified\" && exit 1",
+      "compile:sass": "node-sass ./sass/main.scss ./static/ecomapp/css/custon/style.css -w",
+      "scss": "node-sass --watch scss -o css"
+    },
+    "repository": {
+      "type": "git",
+      "url": "git+https://github.com/cybertrontech/orbindacom.git"
+    },
+    "author": "",
+    "license": "ISC",
+    "bugs": {
+      "url": "https://github.com/cybertrontech/orbindacom/issues"
+    },
+    "homepage": "https://github.com/cybertrontech/orbindacom#readme",
+    "dependencies": {
+      "node-sass": "^7.0.3"
+    }
+  }
+  

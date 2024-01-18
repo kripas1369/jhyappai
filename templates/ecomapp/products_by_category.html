@@ -1,0 +1,138 @@
+{% extends "ecomapp/base.html" %}
+{% load static %} {% block content %}
+<!-- Start of new slider -->
+
+
+<section class="Categories">
+  <div class="Categories_Heading">
+    <h2>{{category}}</h2>
+    <p>Shop</p>
+  </div>
+  <div class="Categories_Box">
+    {% for product in products %}
+    <a href="{% url 'ecomapp:product_detail' product.slug %}" class="Categories_Box_Itemm">
+    <div class="Categories_Box_Item">
+    <img src="{{product.image1}}" alt="Rozai Product Image" class="Categories_Box_Item_Image" />
+      <!-- <img src="../../static/images/banner-01.jpg" alt="Rozai Product Image" class="Categories_Box_Item_Image" /> -->
+      <div class="Categories_Box_Item_Title">
+        <h3>{{product.title}}</h3>
+    </div>
+      <div class="Categories_Box_Item_Span">
+        <p>
+
+          Rs.{{product.price|floatformat:2}}
+        </p>
+      </div>
+      <div class="Categories_Box_Item_Text">
+        <p>
+          Rs. {{product.get_final_price_after_discount|floatformat:2}}
+        </p>
+        <span>-{{product.discount}}%</span>
+      </div>
+    </div>
+  </a>
+    {% endfor %}
+  </div>
+  <!-- <div class="Wishlist_Pagination">
+    <div class="Wishlist_Pagination_Items">
+      <div class="Wishlist_Pagination_Items_Box">
+
+      </div>
+      <div class="Wishlist_Pagination_Items_Box1">
+
+     
+      <div class="Wishlist_Pagination_Items_Item">1</div>
+      <div class="Wishlist_Pagination_Items_Item_Disable">
+        2
+      </div>
+      <div class="Wishlist_Pagination_Items_Item_Disable">
+        3
+      </div>
+      <div class="Wishlist_Pagination_Items_Item_Disable">
+        4
+      </div>
+      <div class="Wishlist_Pagination_Items_Item_Disable">
+        5
+      </div>
+      <div class="Wishlist_Pagination_Items_Item_Disable">
+        6
+      </div>
+      <div class="Wishlist_Pagination_Items_Item_Disable">
+        7
+      </div>
+      <div class="Wishlist_Pagination_Items_Item_Disable">
+        8
+      </div>
+      <div class="Wishlist_Pagination_Items_Item_Disable">
+        9
+      </div>
+      <div class="Wishlist_Pagination_Items_Item_Disable">
+        10
+      </div>
+    </div>
+      <div class="Wishlist_Pagination_Items_Box">
+      </div>
+    </div>
+  </div> -->
+  <div class="Wishlist_Pagination">
+    <div class="Wishlist_Pagination_Items">
+
+      {% if products.has_previous %}
+      <a href="?page={{ products.previous_page_number }}" class="Wishlist_Pagination_Items_Box">
+        <i class="fa-solid fa-angle-left Wishlist_Pagination_Items_Box_Icon"></i>
+      </a>
+      {% else %}
+
+      <i class="fa-solid fa-angle-left Wishlist_Pagination_Items_Box_Disable"></i>
+      {% endif %}
+
+      {% for i in products.paginator.page_range %}
+      {% if products.number == i %}
+      <div class="Wishlist_Pagination_Items_Item">
+        {{i}}
+      </div>
+      {% else %}
+      <div class="Wishlist_Pagination_Items_Item_Disable">
+        <a style="font-size: 23px" href="?page={{ i }}">{{ i }}</a>
+      </div>
+      
+      {% endif %} {% endfor %}
+      {% if products.has_next %}
+      <a href="?page={{products.next_page_number }}" class="Wishlist_Pagination_Items_Box">
+        <i class="fa-solid fa-angle-right Wishlist_Pagination_Items_Box_Icon"></i>
+      </a>
+      {% else %}
+      <a class="Wishlist_Pagination_Items_Item_Disable">
+        <i class="fa-solid fa-angle-right Wishlist_Pagination_Items_Box_Icon"></i>
+      </a>
+      {% endif %}
+    </div>
+  </div>
+  <!-- <nav aria-label="Page navigation example">
+    <ul class="pagination pagination-lg justify-content-center">
+      <li class="page-item disabled">
+        <a class="page-link" href="#" tabindex="-1">Previous</a>
+      </li>
+      <li class="page-item"><a class="page-link" href="#">1</a></li>
+      <li class="page-item"><a class="page-link" href="#">2</a></li>
+      <li class="page-item"><a class="page-link" href="#">3</a></li>
+      <li class="page-item"><a class="page-link" href="#">4</a></li>
+      <li class="page-item"><a class="page-link" href="#">5</a></li>
+      <li class="page-item"><a class="page-link" href="#">6</a></li>
+      <li class="page-item"><a class="page-link" href="#">7</a></li>
+
+      <li class="page-item">
+        <a class="page-link" href="#">Next</a>
+      </li>
+    </ul>
+  </nav> -->
+  </div>
+</section>
+
+{% endblock content %}
+
+<!-- JS BLOCK  -->
+{% block jscontent %}
+
+{% endblock jscontent %}
+<!-- JS BLOCK END -->

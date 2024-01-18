@@ -1,0 +1,190 @@
+{% extends "ecomapp/base.html" %}
+{% load static %}
+{% block content %}
+<!-- Start of new slider -->
+
+<section class="Shopping">
+  <div class="Shopping_Heading">
+    <h3>Checkout</h3>
+    <h4>Shop</h4>
+  </div>
+
+  <div class="Shopping_Products">
+    <div class="Shopping_Products_List1">
+
+      <div class="Shopping_Products_List_Heading">
+        <h3>Billing Details</h3>
+      </div>
+
+      <div style="display:flex;justify-content:center;align-items:center">
+
+        <div id="fill_form_correctly"
+          style="margin:0 auto;font-size:2rem;width:77%;display:none;justify-content:center;align-items:center"
+          class="alert alert-danger" role="alert">
+          Please fill out the form correctly.
+        </div>
+      </div>
+
+
+      <form id="checkout_form" class="Shopping_Products_List_Form">
+        <!-- {% csrf_token %} -->
+        <input style="display: none" id="total_cart_items" name="total_cart_items" />
+        <input style="display: none" id="location_input" name="location_input" />
+        <input style="display: none" id="location_price" value="0" name="location_price" />
+
+        <div style="display: none" id="add_items_from_localstorage"></div>
+
+        <div class="Shopping_Products_List_Form_Name">
+          <div class="Shopping_Products_List_Form_Name_Input">
+            <p>First Name *</p>
+            <!-- <input required type="text" name="first_name" class="Shopping_Products_List_Form_Name_Input_Input" /> -->
+            <input type="text" id="first_name" class="Shopping_Products_List_Form_Name_Input_Input" />
+          </div>
+          <div class="Shopping_Products_List_Form_Name_Input">
+            <p>Last Name *</p>
+            <!-- <input required name="last_name" type="text" class="Shopping_Products_List_Form_Name_Input_Input" /> -->
+            <input id="last_name" type="text" class="Shopping_Products_List_Form_Name_Input_Input" />
+          </div>
+        </div>
+        <div class="Shopping_Products_List_Form_Input">
+          <p>Email address *</p>
+          <!-- <input name="email" required type="text" class="Shopping_Products_List_Form_Input_Input" /> -->
+          <input id="email" type="text" class="Shopping_Products_List_Form_Input_Input" />
+        </div>
+        <div class="Shopping_Products_List_Form_Input">
+
+          <p>Location-Delivery Price
+          <p>
+            <select id="select_location" class="Shopping_Products_List_Form_Input_Input" name="cars">
+              <option>
+              </option>
+              {% for location in locations %}
+              <option value="{{location.id}}">{{location.title}}-{{location.price}}</option>
+              {% endfor %}
+            </select>
+        </div>
+        <div class="Shopping_Products_List_Form_Name">
+          <div class="Shopping_Products_List_Form_Name_Input">
+            <p>Town / City *</p>
+            <input type="text" class="Shopping_Products_List_Form_Name_Input_Input" />
+          </div>
+          <div class="Shopping_Products_List_Form_Name_Input">
+            <p>Mobile Number *</p>
+            <!-- <input name="phonenumber" required type="number" class="Shopping_Products_List_Form_Name_Input_Input" /> -->
+            <input id="phonenumber" type="number" class="Shopping_Products_List_Form_Name_Input_Input" />
+          </div>
+          <div class="Shopping_Products_List_Form_Name_Input">
+            <p>Zip Code *</p>
+            <!-- <input name="zipcode" required type="number" class="Shopping_Products_List_Form_Name_Input_Input" /> -->
+            <input id="zipcode" required type="number" class="Shopping_Products_List_Form_Name_Input_Input" />
+          </div>
+        </div>
+        <div style="display:none" class="Shopping_Products_List_Form_Input">
+          <p>Coupon Code *</p>
+          <!-- <input required type="text" name="coupon" class="Shopping_Products_List_Form_Input_Input" /> -->
+          <input type="text" id="coupon" class="Shopping_Products_List_Form_Input_Input" />
+        </div>
+        <div style="display:none" class="Shopping_Products_List_Form_Input">
+          <p>Coupon Code Percent*</p>
+          <!-- <input required type="text" name="coupon" class="Shopping_Products_List_Form_Input_Input" /> -->
+          <input type="text" id="coupon_code_percent" class="Shopping_Products_List_Form_Input_Input" />
+        </div>
+
+
+        <button onclick="submitAjaxForm()" type="button" id="final_order_submit_button"
+          class="Shopping_Products_List_Form_ButtonPrimary">
+          Place Order
+        </button>
+      </form>
+    </div>
+    <div class="Shopping_Products_Cart">
+      <div class="Shopping_Products_Cart_Heading">
+        <h2>Cart Total</h2>
+      </div>
+      <div class="Shopping_Products_Cart_SubTotal">
+        <h4>Subtotal:</h4>
+        <div class="Shopping_Products_Cart_SubTotal_Price">
+          <p>Rs. </p>
+          <p id="sub_total_price"> </p>
+        </div>
+
+      </div>
+      <div class="Shopping_Products_Cart_SubTotal">
+        <h4>Delivery Cost :</h4>
+        <p>
+          Rs. <span id="delivery_price">
+            0.00
+          </span>
+        </p>
+      </div>
+
+      <div style="display:none;" id="coupon_price_div" class="Shopping_Products_Cart_SubTotal">
+        <h4>Coupon Discount:</h4>
+        <p>
+          -
+          <span id="coupon_percent">
+         
+          </span>
+          %
+        </p>
+      </div>
+
+      <div  id="wrong_coupon_div" style="display: none;" class="Shopping_Products_Cart_SubTotal">
+        <span style="color:red; font-size:20px;" id="coupon_percent">
+          Wrong Coupon.
+        </span>
+
+
+      </div>
+      <!-- 
+      <div class="Shopping_Products_Cart_SubTotal">
+
+        <h5>Code:</h5>
+      </div> -->
+
+      <div style="display:flex;flex-direction:column">
+
+        <input id="coupon_field" type="text" class="Shopping_Products_List_Form_Name_Input_Input" />
+
+        <button id="apply_coupon_code" onclick="applyCouponCode()" class="Shopping_Products_List_Form_ButtonPrimary">
+          Apply
+        </button>
+      </div>
+
+      <!-- <div clas="Shopping_Products_Cart_SubTotal"> -->
+      <!-- </div> -->
+
+
+      <div class="Shopping_Products_Cart_Total">
+        <h3>Total</h3>
+        <div class="Shopping_Products_Cart_Total_Price">
+          <h3>Rs. </h3>
+          <h3 id="total_price"></h3>
+        </div>
+
+      </div>
+      {% comment %}
+      <div class="Shopping_Products_Cart_Payment">
+        <div class="Shopping_Products_Cart_Payment_Item">
+          <input type="radio" class="Shopping_Products_Cart_Payment_Item_Input" />
+          <p>Esewa</p>
+        </div>
+        <div class="Shopping_Products_Cart_Payment_Item">
+          <input type="radio" class="Shopping_Products_Cart_Payment_Item_Input" />
+          <p>Cash on Delivery</p>
+        </div>
+      </div>
+      {% endcomment %}
+
+    </div>
+  </div>
+</section>
+
+{% endblock content %}
+
+<!-- JS BLOCK  -->
+{% block jscontent %}
+<!-- <script type="text/javascript" src="{% static 'ecomapp/js/custom/billing.js' %}"></script> -->
+<script type="text/javascript" src="{% static 'ecomapp/js/custom/newbillilng.js' %}"></script>
+{% endblock jscontent %}
+<!-- JS BLOCK END -->

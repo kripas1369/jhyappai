@@ -1,0 +1,64 @@
+.About{
+    &_Heading{
+        font-size:2.4rem !important;
+        font-weight:900 !important;
+    }
+    &_Paragraph{
+        font-size: 1.5rem !important;
+        font-weight: 400 !important;
+    }
+    &_FAQ{
+        width: 80%;
+        
+        margin:5rem auto;
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        justify-content: center;
+        h2{
+            font-size: 4rem;
+            font-weight: 900;
+            margin:3rem auto;
+        }
+        &_Boxes{
+            height:auto;
+            width:100%;
+            display: flex;
+            flex-direction: column;
+            align-items:flex-start;
+            justify-content: flex-start;
+            &_Box{
+                height:auto;
+                width: 100%;
+                margin:2rem 0;
+                border-bottom: 1px solid $color-grey-light-2;
+                padding:1rem 0;
+                &:hover{
+                    cursor: pointer;
+                }
+                &_Heading{
+                    display: flex;
+                    align-items: center;
+                    justify-content: space-between;
+                    margin:.5rem 0;
+                    h3{
+                        font-size: 2.5rem;
+                        font-weight: 800;
+                    }
+                    &_Logo{
+                        height:5rem;
+                        width:5rem;
+                        background:red;
+                    }
+                }
+                
+                p{
+                    font-size: 2rem;
+                    font-weight: 600;
+
+                }
+            }
+        }
+    
+    }
+}

@@ -1,0 +1,16 @@
+{% extends "ecomapp/base.html" %}
+{% load static %}
+
+{% block content %}
+{% for product in products %}
+<h1>Title : {{product.title}}</h1>
+<h1>Price : {{product.price}}</h1>
+<h1>Discount : {{product.discount}}</h1>
+<h1> You save : {{product.get_discount_price}}</h1>
+<h1>Final Price: {{product.get_final_price_after_discount}}</h1>
+<h1>In Stock : {{product.in_stock}}</h1>
+<h1>Rating : {{product.avg_rate}}</h1>
+<p>Description : {{product.description|safe}} </p>
+<hr />
+{% endfor %}
+{% endblock content %}

@@ -1,0 +1,60 @@
+{% extends "ecomapp/base.html" %}
+{% load static %}
+{% load socialaccount %}
+
+{% block csscontent %}
+<link rel="stylesheet" href="{% static 'ecomapp/css/custon/login.css' %}">
+{% endblock csscontent %}
+
+
+
+
+{% block content %}
+<form action="" method="post" class="LoginPage">
+    {% csrf_token %}
+    <h2 class="LoginPage_Heading">Login to your account</h2>
+    {% if messages %}
+    <ul class="messages">
+        {% for message in messages %}
+        <div class="alert alert-danger alert-dismissible fade show" role="alert">
+            <!-- <strong>error</strong> -->
+            {{message}}
+        </div>
+        <!-- <li{% if message.tags %} class="{{ message.tags }}"{% endif %}>{{ message }}</li> -->
+        {% endfor %}
+    </ul>
+    {% endif %}
+    <input name="email" required type="text" class="LoginPage_InputField" placeholder="Email">
+    <input name="password" required type="password" class="LoginPage_InputField" placeholder="Password">
+    <div class="LoginPage_ForgotPassword">
+        <div class="LoginPage_ForgotPassword_Left">
+            <input type="checkbox" class="LoginPage_ForgotPassword_Left_Checkbox">
+            <p class="LoginPage_ForgotPassword_Text">Remember Me</p>
+        </div>
+        <div class="LoginPage_ForgotPassword_Right">
+            <a href="{% url 'ecomapp:forgot-password-mail-send' %}">
+
+                <p class="LoginPage_ForgotPassword_Right_Text">Forgot Password?</p>
+            </a>
+
+
+        </div>
+    </div>
+    <button type="submit" class="LoginPage_Button">Login</button>
+    <button class="LoginPage_Button" id="submit" type="submit">
+        <a href="{% provider_login_url 'google' %}">Login With Google</a>
+    </button>
+    <div class="LoginPage_Register">
+        <p class="LoginPage_Register_Top">
+            Don't have an account?
+        </p>
+        <p class="LoginPage_Register_Hyperlink">
+            <a href="{% url 'register' %}">Register Now</a>
+        </p>
+    </div>
+</form>
+{% endblock content %}
+
+{% block jscontent %}
+<script type="module" src="{% static 'ecomapp/js/custom/login.js' %}"></script>
+{% endblock jscontent %}

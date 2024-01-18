@@ -1,0 +1,34 @@
+.buttonSecondary{
+    height:4rem;
+    width:auto;
+    padding:0 2rem;
+    font-size:1.8rem;
+    color:$color-primary;
+    background:$color-secondary;
+    margin:0 .9rem;
+    border:none;
+    border-radius: .5rem;
+    outline:none;
+    &:hover{
+        cursor: pointer;
+        background:$color-primary;
+        color:$color-white;
+    }
+}
+.buttonPrimary{
+    height:4rem;
+    width:auto;
+    padding:0 2rem;
+    font-size:1.8rem;
+    color:$color-white;
+    background:$color-primary;
+    margin:0 .9rem;
+    border:none;
+    border-radius: .5rem;
+    outline:none;
+    &:hover{
+        cursor: pointer;
+        background:$color-secondary;
+        color:$color-primary;
+    }
+}

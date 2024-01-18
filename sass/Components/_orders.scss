@@ -1,0 +1,230 @@
+.Orders{
+    height:auto;
+    width: 100%;
+    margin:0 auto;
+    margin-bottom:4rem;
+    &_Heading{
+        height:8rem;
+        width: 100%;
+        background:$color-white;
+        &_Box{
+            height:100%;
+            width:80%;
+            margin:0 auto;
+            display: flex;
+            align-items: center;
+            h4{
+                font-size:2.3rem;
+                font-weight:600;
+                color:$color-grey-dark;
+            }
+        }
+    }
+    &_Box{
+        height:auto;
+        width: 80%;
+        margin:2rem auto;
+        // background: $color-white;
+        // padding:2rem 1rem;
+        &_Item{
+            height:auto;
+            margin:2rem 0;
+            background:$color-white;
+            padding:1rem;
+            border-radius: .5rem;
+            &_Top{
+                display:flex;
+                align-items: center;
+                justify-content: space-between;
+                margin-bottom:1.5rem;
+                padding-bottom:2rem;
+                border-bottom:2px solid $color-grey-light-2;
+                &_Left{
+                    
+                    &_Top{
+                        display: flex;
+                        align-items: center;
+                        height:auto;
+                        
+                        h4{
+                            font-size:2rem;
+                            font-weight: 600;
+                            line-height: 2rem;
+                            &:last-child{
+                                color: $color-tertiary;
+                                margin-left:.9rem;
+                            }
+                        }
+                    }
+                    &_Bottom{
+                        height:auto;
+                        p{
+                            font-size:2rem;
+                            line-height: 2rem;
+                            color:$color-grey-light-3;
+                        }
+                    }
+                }
+                &_Right{
+                    height:auto;
+                    width:auto;
+                    margin-right:4rem;
+                    display: flex;
+                    align-items: center;
+                    &_ButtonPrimary{
+                        font-size:2.5rem;
+                        font-weight:700;
+                        color:$color-tertiary;
+                        background: inherit;
+                        outline:none;
+                        border:none;
+                        &:hover{
+                            cursor: pointer;
+                        }
+                    }
+                }
+            }
+            &_Bottom1{
+                height:auto;
+                width: 100%;
+                display:flex;
+                align-items: center;
+                justify-content: space-between;
+                margin:2rem 0;
+                padding:2rem 0;
+                border-bottom: 2px solid $color-grey-light-2;
+            }
+            &_Bottom{
+                height:auto;
+                width: 80%;
+                display:flex;
+                align-items: center;
+                justify-content: space-between;
+                margin:2rem 0;
+                padding:1rem 0;
+                &_Data{
+                    display:flex;
+                    align-items: center;
+                    flex:0 0 50%;
+                    p{
+                        font-size:2rem;
+                        font-weight:600;
+                    }
+                    &_Image{
+                        height:10rem;
+                        width: 10rem;
+                        margin-right: 2rem;
+                        margin-left:3rem;
+                        border-radius: .5rem;
+                    }
+                }
+                &_Quantity{
+                    width:10rem;
+                    display:flex;
+                    align-items: center;
+                  
+                    h4{
+                        font-size:2rem;
+                        margin-right:.5rem;
+                        line-height: 2rem;
+                        // background: red;
+                        display: flex;
+                        align-items: center;
+                        justify-content: center;
+                        color:$color-grey-light-3;
+                        &:last-child{
+                            margin-left:.5rem;
+                            font-weight: 700;
+                            color:$color-black;
+                        }
+                    }
+                }
+                &_Tag{
+                    color:$color-white;
+                    background: $color-grey-light-2;
+                    padding:.5rem 2rem;
+                    border-radius: 2rem;
+                    p{
+                        font-size:1.8rem;
+                        font-weight:600;
+                        color: $color-white;
+                    }
+                    // font-weight:600;
+
+                }
+                &_Price{
+                    p{
+                        font-size:2rem;
+                        font-weight:700;
+                        color:$color-grey-light-3;
+                    }
+                }
+                &_Quantity1{
+                    width:10rem;
+                    display:flex;
+                    align-items: center;
+                  
+                    h4{
+                        font-size:2rem;
+                        margin-right:.5rem;
+                        line-height: 2rem;
+                        // background: red;
+                        display: flex;
+                        align-items: center;
+                        justify-content: center;
+                        color:$color-grey-light-3;
+                        &:last-child{
+                            margin-left:.5rem;
+                            // font-weight: 700;
+                            color:$color-black;
+                        }
+                    }
+                }
+            }
+        }
+        
+    }
+    &_Bottom{
+        height:auto;
+        width:80%;
+        margin:2.5rem auto;
+        display: flex;
+        // align-items: center;
+        justify-content: space-between;
+        &_Box{
+            min-height:30rem;
+            height: auto;
+            width:49%;
+            background: $color-white;
+            padding:2rem;
+            h3{
+                font-size:2.3rem;
+                font-weight: 700;
+                color:$color-black;
+                margin:1rem 0;
+            }
+            h4{
+                font-size:2rem;
+                font-weight:700;
+                color:$color-grey-light-4;
+                margin:.5rem 0;
+            }
+            &_Price{
+                height:4.5rem;
+                display: flex;
+                align-items: center;
+                justify-content: space-between;
+            }
+            &_Total{
+                height:6rem;
+                display: flex;
+                align-items: center;
+                justify-content: space-between;
+                margin-top:2rem;
+                padding-top:2rem;
+                border-top: 3px solid $color-grey-light-2;
+
+            }
+        }
+    }
+}

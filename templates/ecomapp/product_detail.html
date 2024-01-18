@@ -1,0 +1,348 @@
+{% extends "ecomapp/base.html" %}
+{% load static %}
+{% load custom_tags %}
+{% block content %}
+<!-- Start of new slider -->
+<section class="Single">
+  <div class="Single_Box">
+    <!-- <img src="{{product.image1}}" alt="product image" class="Single_Box_Image"> -->
+    <div class="Single_Box_Image">
+      <!-- src="{{product.image1}}" -->
+      <div id="div_outside_large_image" class="Single_Box_Image_Box1">
+        <img id="large_big_image" src="{{product.image1}}" alt="productimage" class="Single_Box_Image_Image" />
+      </div>
+      <div class="Single_Box_Image_Box">
+        {% if product.image1 != "" %}
+        <img style="border: 2px solid #f57224" id="1_image" onclick="change_image(1)" src="{{product.image1}}"
+          alt="product image" class="Single_Box_Image_Box_Image" />
+        {% endif %} {% if product.image2 != "" %}
+        <img id="2_image" onclick="change_image(2)" src="{{product.image2}}" alt="product image"
+          class="Single_Box_Image_Box_Image" />
+        {% endif %} {% if product.image3 != "" %}
+        <img id="3_image" onclick="change_image(3)" src="{{product.image3}}" alt="product image"
+          class="Single_Box_Image_Box_Image" />
+        {% endif %} {% if product.image4 != "" %}
+        <img id="4_image" onclick="change_image(4)" src="{{product.image4}}" alt="product image"
+          class="Single_Box_Image_Box_Image" />
+        {% endif %} {% if product.image5 != "" %}
+        <img id="5_image" onclick="change_image(5)" src="{{product.image5}}" alt="product image"
+          class="Single_Box_Image_Box_Image" />
+        {% endif %}
+      </div>
+    </div>
+    <div class="Single_Box_Right">
+      <h3>{{product.title}}</h3>
+
+
+
+      <div class="Single_Box_Right_Brand">
+        <h5>Brand:</h5>
+        {%if product.brand == None %}
+        <h4>No Brand</h4>
+        {% else %}
+        <h4>{{product.brand.title}}</h4>
+        {% endif %}
+      </div>
+
+
+
+      <span>
+        Rs. {{product.get_final_price_after_discount|floatformat:2}}
+      </span>
+      <div class="Single_Box_Right_Discount">
+        <h4>Rs.{{product.price|floatformat:2}}</h4>
+        <h5>- {{product.discount}}%</h5>
+      </div>
+      <!-- {% if colors|length >= 1 %}
+      <div class="Single_Box_Right_Colors">
+        <h4>Colors :</h4>
+        <div class="Single_Box_Right_Colors_Box">
+          {% for color in colors %}
+          <div class="Single_Box_Right_Colors_Box_Item" style="background:{{color.color_code_hex}}">
+          </div>
+
+          {% endfor %}
+        </div>
+      </div>
+      {% endif %} -->
+       <!-- {% if sizes|length >= 1 %}
+      <div class="Single_Box_Right_Size">
+        <h4>Size :</h4>
+        <div class="Single_Box_Right_Colors_Box">
+          {% for size in sizes %}
+          <div class="Single_Box_Right_Colors_Box_Item1">{{size.title}}</div>
+          {% endfor %}
+        </div>
+      </div> -->
+      {% endif %}
+      <input value="{{product.id}}" id="hide_product_id" type="hidden" />
+      <div class="Single_Box_Right_Boxes">
+      <div class="Single_Box_Right_Quantity">
+        <p>Quantity :</p>
+        <div class="Single_Box_Right_Quantity_Button">
+          <i onclick='decreaseQuantityNumber("{{product.id}}")'
+            class="fa fa-minus Single_Box_Right_Quantity_Button_Logo"></i>
+        </div>
+
+        <div id="quantity_number_{{product.id}}" class="Single_Box_Right_Quantity_Number">
+          1
+        </div>
+        <div class="Single_Box_Right_Quantity_Button">
+          <i onclick='increaseQuantityNumber("{{product.id}}")'
+            class="fa-solid fa-plus Single_Box_Right_Quantity_Button_Logo"></i>
+        </div>
+      </div>
+      <div id="wishlisticon_div" class="Single_Box_Right_Wishlist">
+        <div class="Single_Box_Right_Wishlist_Button1">
+          <i id="wishlist" style="font-size: 30px;" class="fa-solid fa-heart"></i>
+        </div>
+
+
+        {% if request.user.is_authenticated %}
+
+        <div id="fav_icon">
+
+          {% if wishlist == True %}
+          <div class="Single_Box_Right_Wishlist_Button" onclick="removeFromWishlist()">
+            <i style="font-size: 30px; color: red" class="fa-solid fa-heart"></i>
+          </div>
+
+          {% else %}
+
+          <div class="Single_Box_Right_Wishlist_Button" onclick="addToWishlist()">
+            <i style="font-size: 30px; color: grey" class="fa-solid fa-heart"></i>
+          </div>
+          {% endif %}
+        </div>
+
+        {% endif %}
+
+      </div>
+    </div>
+      <div class="Single_Box_Buttons">
+
+
+        <button onclick="buyNow('{{product.id}}','{{product.get_final_price_after_discount|floatformat:2}}')"
+          class="Single_Box_Buttons_ButtonPrimary">
+          Buy Now
+        </button>
+
+        <!-- <button class="Single_Box_Buttons_ButtonPrimary"
+            onclick="buyNow('{{product.title}}','{{product.slug}}','{{product.id}}','{{product.image1}}','{{product.get_final_price_after_discount|floatformat:2}}')">
+            Buy Now
+          </button> -->
+
+        <button
+          onclick="addtocart('{{product.title}}','{{product.slug}}','{{product.id}}','{{product.image1}}','{{product.get_final_price_after_discount|floatformat:2}}')"
+          class="Single_Box_Buttons_ButtonSecondary">
+          Add to Cart
+        </button>
+      </div>
+    </div>
+    <div class="Single_Box_Box">
+      <h4>Description</h4>
+      <p>{{product.description|safe}}</p>
+    </div>
+  </div>
+  <div class="Single_Review">
+
+    <div class="Single_Review_Heading">
+      <h3>Ratings and Reviews</h3>
+    </div>
+
+    <div class="Single_Review_Stars">
+      <div class="Single_Review_Stars_Left">
+        <div class="Single_Review_Stars_Left_Text">
+
+
+          <h3>{% if average_rating == None %}
+            0.0 {% else %}
+            {{average_rating}}
+            {% endif %}</h3>
+          <h4>/ 5</h4>
+
+
+        </div>
+        <div class="Single_Review_Stars_Left_Stars"> 
+          <i class="fa-solid fa-star Single_Review_Stars_Left_Stars_Star"></i>
+          <i class="fa-solid fa-star Single_Review_Stars_Left_Stars_Star"></i>
+           <i class="fa-solid fa-star Single_Review_Stars_Left_Stars_Star"></i>
+           <i class="fa-solid fa-star Single_Review_Stars_Left_Stars_Star"></i>
+           <i class="fa-solid fa-star Single_Review_Stars_Left_Stars_Star"></i>
+        </div>
+        <p>{{reviews.count}} ratings</p>
+      </div>
+      <div class="Single_Review_Stars_Right">
+        <div class="Single_Review_Stars_Right_Box">
+          <div class="Single_Review_Stars_Right_Box_Stars">
+            <i class="fa-solid fa-star Single_Review_Stars_Right_Box_Stars_StarActive"></i>
+            <i class="fa-solid fa-star Single_Review_Stars_Right_Box_Stars_StarActive"></i>
+            <i class="fa-solid fa-star Single_Review_Stars_Right_Box_Stars_StarActive"></i>
+            <i class="fa-solid fa-star Single_Review_Stars_Right_Box_Stars_StarActive"></i>
+            <i class="fa-solid fa-star Single_Review_Stars_Right_Box_Stars_StarActive"></i>
+          </div>
+          <p>{% rating_number product.id 5 %}</p>
+        </div>
+        <div class="Single_Review_Stars_Right_Box">
+          <div class="Single_Review_Stars_Right_Box_Stars">
+            <i class="fa-solid fa-star Single_Review_Stars_Right_Box_Stars_StarActive"></i>
+            <i class="fa-solid fa-star Single_Review_Stars_Right_Box_Stars_StarActive"></i>
+            <i class="fa-solid fa-star Single_Review_Stars_Right_Box_Stars_StarActive"></i>
+            <i class="fa-solid fa-star Single_Review_Stars_Right_Box_Stars_StarActive"></i>
+            <i class="fa-solid fa-star Single_Review_Stars_Right_Box_Stars_Star"></i>
+          </div>
+          <p>{% rating_number product.id 4 %}</p>
+        </div>
+        <div class="Single_Review_Stars_Right_Box">
+          <div class="Single_Review_Stars_Right_Box_Stars">
+            <i class="fa-solid fa-star Single_Review_Stars_Right_Box_Stars_StarActive"></i>
+            <i class="fa-solid fa-star Single_Review_Stars_Right_Box_Stars_StarActive"></i>
+            <i class="fa-solid fa-star Single_Review_Stars_Right_Box_Stars_StarActive"></i>
+            <i class="fa-solid fa-star Single_Review_Stars_Right_Box_Stars_Star"></i>
+            <i class="fa-solid fa-star Single_Review_Stars_Right_Box_Stars_Star"></i>
+          </div>
+          <p>{% rating_number product.id 3 %}</p>
+        </div>
+        <div class="Single_Review_Stars_Right_Box">
+          <div class="Single_Review_Stars_Right_Box_Stars">
+            <i class="fa-solid fa-star Single_Review_Stars_Right_Box_Stars_StarActive"></i>
+            <i class="fa-solid fa-star Single_Review_Stars_Right_Box_Stars_StarActive"></i>
+            <i class="fa-solid fa-star Single_Review_Stars_Right_Box_Stars_Star"></i>
+            <i class="fa-solid fa-star Single_Review_Stars_Right_Box_Stars_Star"></i>
+            <i class="fa-solid fa-star Single_Review_Stars_Right_Box_Stars_Star"></i>
+          </div>
+          <p>{% rating_number product.id 2 %}</p>
+        </div>
+        <div class="Single_Review_Stars_Right_Box">
+          <div class="Single_Review_Stars_Right_Box_Stars">
+            <i class="fa-solid fa-star Single_Review_Stars_Right_Box_Stars_StarActive"></i>
+            <i class="fa-solid fa-star Single_Review_Stars_Right_Box_Stars_Star"></i>
+            <i class="fa-solid fa-star Single_Review_Stars_Right_Box_Stars_Star"></i>
+            <i class="fa-solid fa-star Single_Review_Stars_Right_Box_Stars_Star"></i>
+            <i class="fa-solid fa-star Single_Review_Stars_Right_Box_Stars_Star"></i>
+          </div>
+          <p>{% rating_number product.id 1 %}</p>
+        </div>
+      </div>
+    </div>
+    <div class="Single_Review_Product">
+      <p>Product Reviews</p>
+    </div>
+    <div class="Single_Review_Reviews">
+
+
+
+
+      {% for review in reviews %}
+
+      <div class="Single_Review_Reviews_Item">
+        <div class="Single_Review_Reviews_Item_Top">
+          {% if review.rate == 1 %}
+          <div class="Single_Review_Reviews_Item_Top_StarBox">
+            <i class="fa-solid fa-star Single_Review_Reviews_Item_Top_StarBox_ActiveStar"></i>
+            <i class="fa-solid fa-star Single_Review_Reviews_Item_Top_StarBox_Star"></i>
+            <i class="fa-solid fa-star Single_Review_Reviews_Item_Top_StarBox_Star"></i>
+            <i class="fa-solid fa-star Single_Review_Reviews_Item_Top_StarBox_Star"></i>
+            <i class="fa-solid fa-star Single_Review_Reviews_Item_Top_StarBox_Star"></i>
+          </div>
+          {% elif review.rate == 2 %}
+          <div class="Single_Review_Reviews_Item_Top_StarBox">
+            <i class="fa-solid fa-star Single_Review_Reviews_Item_Top_StarBox_ActiveStar"></i>
+            <i class="fa-solid fa-star Single_Review_Reviews_Item_Top_StarBox_ActiveStar"></i>
+            <i class="fa-solid fa-star Single_Review_Reviews_Item_Top_StarBox_Star"></i>
+            <i class="fa-solid fa-star Single_Review_Reviews_Item_Top_StarBox_Star"></i>
+            <i class="fa-solid fa-star Single_Review_Reviews_Item_Top_StarBox_Star"></i>
+          </div>
+          {% elif review.rate == 3 %}
+          <div class="Single_Review_Reviews_Item_Top_StarBox">
+            <i class="fa-solid fa-star Single_Review_Reviews_Item_Top_StarBox_ActiveStar"></i>
+            <i class="fa-solid fa-star Single_Review_Reviews_Item_Top_StarBox_ActiveStar"></i>
+            <i class="fa-solid fa-star Single_Review_Reviews_Item_Top_StarBox_ActiveStar"></i>
+            <i class="fa-solid fa-star Single_Review_Reviews_Item_Top_StarBox_Star"></i>
+            <i class="fa-solid fa-star Single_Review_Reviews_Item_Top_StarBox_Star"></i>
+          </div>
+          {% elif review.rate == 4 %}
+          <div class="Single_Review_Reviews_Item_Top_StarBox">
+            <i class="fa-solid fa-star Single_Review_Reviews_Item_Top_StarBox_ActiveStar"></i>
+            <i class="fa-solid fa-star Single_Review_Reviews_Item_Top_StarBox_ActiveStar"></i>
+            <i class="fa-solid fa-star Single_Review_Reviews_Item_Top_StarBox_ActiveStar"></i>
+            <i class="fa-solid fa-star Single_Review_Reviews_Item_Top_StarBox_ActiveStar"></i>
+            <i class="fa-solid fa-star Single_Review_Reviews_Item_Top_StarBox_Star"></i>
+          </div>
+          {% else %}
+          <div class="Single_Review_Reviews_Item_Top_StarBox">
+            <i class="fa-solid fa-star Single_Review_Reviews_Item_Top_StarBox_ActiveStar"></i>
+            <i class="fa-solid fa-star Single_Review_Reviews_Item_Top_StarBox_ActiveStar"></i>
+            <i class="fa-solid fa-star Single_Review_Reviews_Item_Top_StarBox_ActiveStar"></i>
+            <i class="fa-solid fa-star Single_Review_Reviews_Item_Top_StarBox_ActiveStar"></i>
+            <i class="fa-solid fa-star Single_Review_Reviews_Item_Top_StarBox_ActiveStar"></i>
+          </div>
+          {% endif %}
+          <div>
+            {{review.created_at}}
+          </div>
+        </div>
+        <p>by {{review.user.first_name}} {{review.user.last_name}}</p>
+
+        <h4>{{review.review}}</h4>
+        <div class="Single_Review_Reviews_Item_Buttons">
+          <button class="Single_Review_Reviews_Item_Buttons_ButtonPrimary">
+            <i class="fa-regular fa-pen-to-square Single_Review_Reviews_Item_Buttons_Icons"></i>
+          </button>
+          <button class="Single_Review_Reviews_Item_Buttons_ButtonSecondary">
+            <i class="fa-regular fa-trash-can Single_Review_Reviews_Item_Buttons_Icons"></i>
+          </button>
+        </div>
+      </div>
+    </div>
+    {% endfor %}
+  </div>
+  </div>
+  {% if request.user.is_authenticated %}
+  <div class="Single_Description">
+    <div class="Single_Description_Heading">
+      <h3>Reviews</h3>
+    </div>
+    <form action="" method="post" class="Single_Description_Review">
+      {% csrf_token %}
+      <h2>Add a Review</h2>
+      <div class="Single_Description_Review_Rating">
+        <p>Your rating *</p>
+        <!-- <input type="number" class="Single_Description_Review_Rating_Input" id="rating_input"> -->
+
+        <input style="display:none" name="rating_value" id="hidden_star_value" value="0" />
+        <div class="Single_Description_Review_Rating_Stars">
+          <i class="fa-solid fa-star Single_Description_Review_Rating_Stars_Star" id="review1"
+            onclick='takeReview(1)'></i>
+          <i id="review2" onclick='takeReview(2)'
+            class="fa-solid fa-star Single_Description_Review_Rating_Stars_Star"></i>
+          <i id="review3" onclick='takeReview(3)'
+            class="fa-solid fa-star Single_Description_Review_Rating_Stars_Star"></i>
+          <i id="review4" onclick='takeReview(4)'
+            class="fa-solid fa-star Single_Description_Review_Rating_Stars_Star"></i>
+          <i id="review5" onclick='takeReview(5)'
+            class="fa-solid fa-star Single_Description_Review_Rating_Stars_Star"></i>
+        </div>
+
+      </div>
+      <textarea required placeholder="Comments" name="review_text" id=""
+        class="Single_Description_Review_TextArea"></textarea>
+      <!-- <div class="Single_Description_Review_Button"> -->
+      <button type="submit" class="Single_Description_Review_Button_ButtonPrimary">
+        Submit
+      </button>
+
+      <!-- </div> -->
+    </form>
+  </div>
+  {% endif %}
+</section>
+
+{% endblock content %}
+
+<!-- JS BLOCK  -->
+{% block jscontent %}
+<!-- <script type="text/javascript" src="{% static 'ecomapp/js/custom/addtocart.js' %}"></script> -->
+<script type="text/javascript" src="{% static 'ecomapp/js/custom/product_detail.js' %}"></script>
+{% endblock jscontent %}
+<!-- JS BLOCK END -->

@@ -1,0 +1,18 @@
+@keyframes Message {
+    0% {
+      right:-3rem;
+    }
+    100% {
+      right:6rem;
+    }
+  }
+
+  @keyframes ProfileMessage {
+    0% {
+      right:-10rem;
+    }
+    100% {
+      right:0;
+    }
+  }
+

@@ -1,0 +1,68 @@
+{% extends "ecomapp/base.html" %} {% load static %} {% block content %}
+<!-- Start About Page  -->
+<div class="about-box-main">
+  <div class="container">
+    <div class="row">
+      <div class="col-lg-6">
+        <div class="banner-frame">
+          <img
+            class="img-fluid"
+            src="{% static 'images/about-img.jpg' %}"
+            alt=""
+          />
+        </div>
+      </div>
+      <div class="col-lg-6">
+        <h2 class="noo-sh-title-top About_Heading">
+          We are <span>Freshshop</span>
+        </h2>
+        <p class="About_Paragraph">
+          "Sed ut perspiciatis unde omnis iste natus error sit voluptatem
+          accusantium doloremque laudantium, totam rem aperiam, eaque ipsa quae
+          ab illo inventore veritatis et quasi architecto beatae vitae dicta
+          sunt explicabo. Nemo enim ipsam voluptatem quia voluptas sit
+          aspernatur aut odit aut fugit, sed quia consequuntur magni dolores eos
+          qui ratione voluptatem sequi nesciunt. Neque porro quisquam est, qui
+          dolorem ipsum quia dolor sit amet, consectetur, adipisci velit, sed
+          quia non numquam eius modi tempora incidunt ut labore et dolore magnam
+          aliquam quaerat voluptatem. Ut enim ad minima veniam, quis nostrum
+          exercitationem ullam corporis suscipit laboriosam, nisi ut aliquid ex
+          ea commodi consequatur? Quis autem vel eum iure reprehenderit qui in
+          ea voluptate velit esse quam nihil molestiae consequatur.
+        </p>
+      </div>
+    </div>
+  </div>
+  <div class="About_FAQ">
+    <h2>Frequently Asked Questions</h2>
+    <div class="About_FAQ_Boxes">
+        <div class="About_FAQ_Boxes_Box">
+            <div class="About_FAQ_Boxes_Box_Heading  boxes">
+                <h3>Is there a free trial available?</h3>
+                <div class="About_FAQ_Boxes_Box_Heading_Logo"></div>
+            </div>
+            <p class="faqparagraph">Lorem ipsum dolor sit amet consectetur adipisicing elit. Itaque temporibus laboriosam corporis doloremque ipsa! Sapiente id nostrum odit optio amet corporis, tempora cum nam eos commodi temporibus, iure, repudiandae harum.</p>
+         </div>
+         <div class="About_FAQ_Boxes_Box">
+            <div class="About_FAQ_Boxes_Box_Heading  boxes">
+                <h3>Hello world</h3>
+                <div class="About_FAQ_Boxes_Box_Heading_Logo"></div>
+            </div>
+            
+            <p class="faqparagraph">Lorem ipsum dolor sit amet consectetur adipisicing elit. Itaque temporibus laboriosam corporis doloremque ipsa! Sapiente id nostrum odit optio amet corporis, tempora cum nam eos commodi temporibus, iure, repudiandae harum.</p>
+         </div>
+    </div>
+     
+  </div>
+</div>
+<!-- End About Page -->
+{% endblock content %}
+
+<!-- JS BLOCK  -->
+{% block jscontent %}
+<script
+  type="module"
+  src="{% static 'ecomapp/js/custom/aboutus.js' %}"
+></script>
+{% endblock jscontent %}
+<!-- JS BLOCK END -->

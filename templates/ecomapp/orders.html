@@ -1,0 +1,84 @@
+{% extends "ecomapp/base.html" %}
+{% load static %}
+
+{% block content %}
+<section class="Orders">
+    <div class="Orders_Heading">
+        <div class="Orders_Heading_Box">
+            <h4>My Orders</h4>
+        </div>
+    </div>
+    <div class="Orders_Box">
+
+        {% for order in orders %}
+        <div class="Orders_Box_Item">
+            <div class="Orders_Box_Item_Top">
+                <div class="Orders_Box_Item_Top_Left">
+                    <a href="{% url 'ecomapp:order_details' order.order_id %}" class="Orders_Box_Item_Top_Left_Top">
+                        <h4>Order</h4>
+                        <h4>#{{order.order_id}}</h4>
+                    </a>
+                    <div class="Orders_Box_Item_Top_Left_Bottom">
+                        <p>Placed on : {{order.created_at}}</p>
+                    </div>
+                </div>
+                <div class="Orders_Box_Item_Top_Right">
+                    <button class="Orders_Box_Item_Top_Right_ButtonPrimary">
+                        <a href="{% url 'ecomapp:order_details' order.order_id %}">
+                            Manage
+                        </a>
+                    </button>
+                </div>
+            </div>
+            <div class="Orders_Box_Item_Bottom">
+                <div class="Orders_Box_Item_Bottom_Data">
+                    <img src="{{order.get_first_order_item.product.image1}}" alt="Rozai's Product Order Image"
+                        class="Orders_Box_Item_Bottom_Data_Image">
+                    <p>
+                        {% for orderitem in order.all_order_items %}
+                        {{orderitem.product.title}},
+                        {% endfor %}
+                    </p>
+                </div>
+                <div class="Orders_Box_Item_Bottom_Quantity">
+                    <h4>Qty: </h4>
+                    <h4>{{order.total_items_quantities}}</h4>
+                </div>
+                <div class="Orders_Box_Item_Bottom_Tag">
+                    <p>{{order.status}}</p>
+                </div>
+            </div>
+        </div>
+        {% endfor %}
+
+    </div>
+    <div class="Wishlist_Pagination">
+        <div class="Wishlist_Pagination_Items">
+            {% if orders.has_previous %}
+            <a href="?page={{ orders.previous_page_number }}"  class="Wishlist_Pagination_Items_Box">
+                <i class="fa-solid fa-angle-left Wishlist_Pagination_Items_Box_Icon"></i>
+            </a>
+            {% else %}
+            <i class="fa-solid fa-angle-left Wishlist_Pagination_Items_Box_Disable"></i>
+            {% endif %} {% for i in orders.paginator.page_range %} {% if orders.number == i %}
+
+            <div class="Wishlist_Pagination_Items_Item">
+                {{i}}
+            </div>
+            {% else %}
+            <div class="Wishlist_Pagination_Items_Item_Disable">
+                <a style="font-size: 23px" href="?page={{ i }}">{{ i }}</a>
+            </div>
+            {% endif %} {% endfor %} {% if orders.has_next %}
+            <a href="?page={{orders.next_page_number }}" class="Wishlist_Pagination_Items_Box">
+                <i class="fa-solid fa-arrow-right Wishlist_Pagination_Items_Box_Icon"></i>
+            </a>
+            {% else %}
+            <a class="Wishlist_Pagination_Items_Item_Disable">
+                <i class="fa-solid fa-angle-right Wishlist_Pagination_Items_Box_Icon"></i>
+              </a>
+            {% endif %}
+        </div>
+    </div>
+</section>
+{% endblock content %}

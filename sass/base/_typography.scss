@@ -1,0 +1,32 @@
+body {
+  color: $color-typography;
+  line-height: 1.5;
+  font-weight: 400;
+  font-size: 1rem;
+}
+
+@import url("https://fonts.googleapis.com/css2?family=Arimo&display=swap");
+
+body,
+body * {
+  font-family: "Arimo", sans-serif;
+}
+
+.white {
+  background-color: $color-white !important;
+}
+
+.error {
+  background: $color-error !important;
+}
+.notification {
+  background: $color-notification !important;
+}
+
+.success {
+  background: $color-success !important;
+}
+
+.added_item_cart {
+  background: #199185 !important;
+}

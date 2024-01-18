@@ -1,0 +1,83 @@
+{% load socialaccount %}
+{% load static %}
+
+<section id="login_popup_item" style="display:none;background-color:grey" class="LoginPopup">
+  <div class="LoginPopup_Container">
+    <div class="LoginPopup_Container_Heading">
+      <div class="LoginPopup_Container_Heading_Item" id="LoginHeading">
+        <h3>Log In</h3>
+      </div>
+      <div class="LoginPopup_Container_Heading_Item" id="RegisterHeading">
+        <h3>Register</h3>
+      </div>
+    </div>
+    <div class="LoginPopup_Container_Box" id="LoginBox">
+      <h2>
+
+        You need to login to checkout.
+        <button class="LoginPopup_Container_Box_Button_ButtonPrimary">
+          <a href="{% url 'login' %}?next=/billing">
+            Login
+          </a>
+        </button>
+      </h2>
+      <!-- <div class="LoginPopup_Container_Box_InputBox">
+        <p>Email *</p>
+        <input type="text" class="LoginPopup_Container_Box_InputBox_Input" />
+      </div>
+      <div class="LoginPopup_Container_Box_InputBox">
+        <p>Password *</p>
+        <input type="text" class="LoginPopup_Container_Box_InputBox_Input" />
+      </div>
+      <div class="LoginPopup_Container_Box_Button">
+        <button class="LoginPopup_Container_Box_Button_ButtonPrimary">
+          Login
+        </button>
+        <button class="LoginPopup_Container_Box_Button_ButtonPrimary">
+
+          <a href="{% provider_login_url 'google' %}?next=/billing">Google</a>
+        </button>
+
+
+        <h3>Forgot Your Password?</h3>
+      </div> -->
+    </div>
+
+    <div class="LoginPopup_Container_Box" style="display: 'none';" id="RegisterBox">
+      <h2>
+        You need to login to checkout.
+        <button class="LoginPopup_Container_Box_Button_ButtonPrimary">
+          <a href="{% url 'register' %}?next=/billing">
+            Register
+          </a>
+        </button>
+      </h2>
+      <!-- <div class="LoginPopup_Container_Box_InputBox">
+        <p>Email *</p>
+        <input type="text" class="LoginPopup_Container_Box_InputBox_Input" />
+      </div>
+      <div class="LoginPopup_Container_Box_InputBox">
+        <p>Password *</p>
+        <input type="text" class="LoginPopup_Container_Box_InputBox_Input" />
+      </div>
+      <div class="LoginPopup_Container_Box_InputBox">
+        <p>Confirm Password *</p>
+        <input type="text" class="LoginPopup_Container_Box_InputBox_Input" />
+      </div>
+      <div class="LoginPopup_Container_Box_Button">
+        <button class="LoginPopup_Container_Box_Button_ButtonPrimary">
+          Register
+        </button>
+        <div class="LoginPopup_Container_Box_Button_InputBox">
+          <input type="checkbox" class="LoginPopup_Container_Box_Button_InputBox_Input">
+          <p>I agree to the privacy policy *</p>
+        </div>
+
+      </div> -->
+    </div>
+  </div>
+</section>
+
+{% block jscontent %}
+<script type="text/javascript" src="{% static 'ecomapp/js/loginpopup.js' %}"></script>
+{% endblock jscontent %}

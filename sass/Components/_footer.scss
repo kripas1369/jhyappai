@@ -1,0 +1,139 @@
+.Footer{
+    height:auto;
+    width: 100%;
+    max-width: 160rem;
+    background: $color-primary;
+    color:$color-white;
+    margin:0 auto;
+    padding:3rem;
+    @media only screen and (max-width: $extra-largest-breakpoints) {
+        // width: 95%;
+        padding:0;
+      }
+      @media only screen and (max-width: $small-breakpoints) {
+        margin-bottom: 12rem;
+      }
+
+    &_Container{
+        height:auto;
+        width: 100%;
+        max-width: 160rem;
+        margin:0 auto;
+        // background-color: red;
+        &_Top{
+            display: flex;
+            align-items: flex-start;
+            flex-wrap: wrap;
+            width: 100%;
+            &_Box{
+                height:auto;
+                flex:1;
+                margin:1rem;
+                padding:1rem;
+                @media only screen and (max-width: $extra-largest-breakpoints) {
+                    flex:0 0 47%;
+                  }
+                @media only screen and (max-width: $largest-breakpoints) {
+                   flex:0 0 82.5%;
+                //    margin: .5rem auto;
+                  } 
+                &_LogoBox{
+                    height:auto;
+                    width: 300px;
+                    padding:1rem 4rem;
+                    background: $color-white;
+                    border-radius: 3rem;
+                }
+                h4{
+                    font-size:2.5rem;
+                    text-transform: uppercase;
+                    font-weight:800;
+                    color:$color-secondary;
+                }
+                p{
+                    font-size:1.7rem;
+                    margin:.5rem 0;
+                    // line-height: 2.3rem;
+                }
+            }
+        }
+        &_Bottom{
+            display: flex;
+            align-items: flex-start;
+            margin:3rem 0;
+            @media only screen and (max-width: $largest-breakpoints) {
+                flex-direction: column;
+                margin:.5rem 0;
+             } 
+            &_Box{
+                width:50%;
+                padding:2rem;
+                height:30rem;
+                @media only screen and (max-width: $largest-breakpoints) {
+                    width:82.5%;
+                    margin:1rem;
+                    padding:1rem;
+                    height:auto;
+                 } 
+                &_Images{
+                    height:auto;
+                    width:100%;
+                    margin-top:3rem;
+                    &_Image{
+                        height:2.8rem;
+                        width:24rem;
+                        // background: red;
+                    }
+                }
+                &_Input{
+                    height:4.5rem;
+                    width: 100%;
+                    margin:.5rem 0;
+                    padding:0 1rem;
+                    border-radius: .5rem;
+                    border:none;
+                    outline:none;
+                    font-size:1.8rem;
+                }
+                h4{
+                    font-size:2.5rem;
+                    text-transform: uppercase;
+                    font-weight:800;
+                    color:$color-secondary;
+                }
+                p{
+                    font-size:1.7rem;
+                    margin:.5rem 0;
+                }
+            }
+        }
+    }
+    &_Copyright{
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+        width: 100%;
+        padding:1rem 2rem;
+        @media only screen and (max-width: $small-breakpoints) {
+           flex-direction: column;
+           align-items: flex-start;
+          }
+        p{
+            font-size:1.8rem;
+        }
+        &_Box{
+            height:6rem;
+            width: 20rem;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+           
+            &_Icons{
+                height:3rem;
+                width: 3rem;
+            }
+
+        }
+    }
+
+}

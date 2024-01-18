@@ -1,0 +1,207 @@
+.Categories{
+    height:auto;
+    width: 100%;
+    margin:0 auto;
+    margin-bottom:4rem;
+    max-width: 160rem;
+   
+    &_Heading{
+        height:20rem;
+        background: $color-white;
+        width:100%;
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        justify-content: center;
+        h2{
+          font-size:3rem;
+          font-weight: 700;
+          color: $color-grey-light-3;
+        }
+        p{
+          font-size: 3rem;
+          color:$color-secondary;
+        }
+        
+    }
+    &_Box {
+        width: 100%;
+        margin:0 auto;
+        height: auto;
+        display: flex;
+        flex-wrap: wrap;
+        align-items: center;
+        justify-content: flex-start;
+        padding: 2rem 0;
+        // background: red;
+        // @media only screen and (max-width: $medium-breakpoints) {
+        //   justify-content: center;
+        // }
+        &_Itemm{
+          height: 100%;
+          width: 18% !important;
+          margin: 1rem 1.3rem;
+          // background: green !important;
+          @media only screen and (max-width: $extra-laargest-breakpoints) {
+            margin:.9rem;
+          }
+          @media only screen and (max-width: $extra-largest-breakpoints) {
+            margin:1rem 1.3rem;
+            width:22% !important;
+            min-width: 22% !important;
+          }
+          @media only screen and (max-width: $large-breakpoints1) {
+            margin:1rem;
+            width:31% !important;
+            min-width: 31% !important;
+          }
+          @media only screen and (max-width: $medium-breakpoints) {
+            margin:.9rem 2rem;
+            width:44% !important;
+            min-width: 44% !important;
+          }
+          @media only screen and (max-width: $small-breakpoints) {
+            margin:.5rem;
+            width:47% !important;
+            min-width: 47% !important;
+          }
+        }
+        &_Item {
+          height: auto;
+          background-color: $color-white !important;
+          padding-bottom: 1rem !important;
+          transition: all .2s ease;
+          &_Title{
+            height: auto;
+            width: auto;
+            height:5rem;
+            margin:.5rem .9rem;
+            display: -webkit-box;
+            -webkit-line-clamp: 2;
+            -webkit-box-orient: vertical;
+            overflow: hidden;
+            h3{
+              height:10rem;
+              font-size:2.5rem;
+              font-weight: 600;
+            }
+          }
+          &_Span {
+            display: flex;
+            flex-direction: column;
+            margin:0 1rem;
+            p{
+              font-size:2.5rem;
+              font-weight: 600;
+              color: $color-primary;
+            }
+          }
+          &_Text {
+            display: flex;
+            align-items: center;
+           margin:0 1rem;
+            p {
+              text-decoration: line-through;
+              font-size: 1.5rem;
+              font-weight: 600;
+              color: $color-grey-light-3;
+              margin-right: .5rem;
+            }
+            span {
+              color: $color-black;
+              font-size: 1.5rem;
+              margin-left: 0.3rem;
+            }
+          }
+  
+          &:hover {
+            cursor: pointer;
+            box-shadow: 1px 5px 6px -1px #777;
+          }
+          &_Image {
+            height:25rem;
+            min-height: 25rem;
+            width: 100%;
+            @media only screen and (max-width: $small-breakpoints) {
+              min-height: 20rem;
+              height:20rem;
+
+            }
+          }
+          span {
+            font-size: 1.8rem;
+            color: $color-primary;
+            line-height: 2.5rem;
+            font-weight: 700;
+          }
+          h3 {
+            font-size: 2rem;
+            // font-weight: 700;
+            color: $color-primary;
+            line-height: 2.5rem;
+            // text-decoration: line-through;
+          }
+          p {
+            font-size: 1.8rem;
+            color: $color-black;
+            white-space: nowrap;
+            overflow: hidden;
+            text-overflow: ellipsis;
+            // font-weight: 700;
+          }
+          &_Text {
+            display: flex;
+            align-items: center;
+            p {
+              text-decoration: line-through;
+              font-size: 1.5rem;
+              color: $color-grey-light-3;
+            }
+            span {
+              color: $color-black;
+              font-size: 1.5rem;
+              margin-left: 0.3rem;
+            }
+          }
+        }
+      }
+    &_Pagination{
+        width:53rem;
+        height:5rem;
+        display: flex;
+        align-items:center;
+        margin:0 auto;
+        &_Button{
+            height:4rem;
+            width: auto;
+            padding:0 2rem;
+            background: inherit;
+            color:$color-black;
+            border:none;
+            outline:none;
+            font-size:2.2rem;
+            &:hover{
+                cursor: pointer;
+            }
+        }
+        &_Items{
+            display: flex;
+            align-items: center;
+            margin:0 .5rem;
+            &_Item{
+                height:4rem;
+                width: 4rem;
+                display: flex;
+                align-items: center;
+                justify-content: center;
+                color:$color-black;
+                font-size:2rem;
+                font-weight:550;
+                margin:0 .2rem;
+                &:hover{
+                    cursor: pointer;
+                }
+            }
+        }
+    }
+}
